@@ -20,6 +20,9 @@ public:
 	matrix4 m_m4Birb;
 	matrix4 m_m4Hawk;
 
+	std::vector<vector3> preyList;
+	int numPrey = 8;
+
 	//for movement
 	vector3 falconMove = vector3(0.0f, 0.0f, 0.0f);
 
