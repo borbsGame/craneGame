@@ -16,6 +16,7 @@ public:
 	typedef ReEngAppClass super;
 
 	matrix4 m_m4Falcon;
+	matrix4 m_m4FalconLeg;
 	matrix4 m_m4Birb;
 	matrix4 m_m4Hawk;
 
