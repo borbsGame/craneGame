@@ -40,7 +40,7 @@ void AppClass::Update(void)
 	ArcBall();
 	
 	//Set the model matrix for the first model to be the arcball
-	m_pMeshMngr->SetModelMatrix(glm::translate(falconMove) * ToMatrix4(m_qArcBall), 0);
+	m_pMeshMngr->SetModelMatrix(glm::translate(falconMove) * glm::scale(vector3(.1,.1,.1)) * ToMatrix4(m_qArcBall), 0);
 	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
