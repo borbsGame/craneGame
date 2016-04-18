@@ -43,6 +43,22 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
 
+#pragma region Falcon Control
+	if (bModifier)
+		fSpeed *= 10.0f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		falconMove.x -= 0.1f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		falconMove.x += 0.1f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		falconMove.y -= 0.1f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		falconMove.y += 0.1f;
+#pragma endregion
+
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));
 	ON_KEY_PRESS_RELEASE(F1, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));

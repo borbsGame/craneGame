@@ -19,6 +19,9 @@ public:
 	matrix4 m_m4Birb;
 	matrix4 m_m4Hawk;
 
+	//for movement
+	vector3 falconMove = vector3(0.0f, 0.0f, 0.0f);
+
 	/*
 	USAGE: Constructor
 	ARGUMENTS: 
