@@ -21,7 +21,7 @@ void AppClass::InitVariables(void)
 
 	m_m4Falcon = matrix4();
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("Lego\\Unikitty.bto", "Unikitty");
+	m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", "Falcon");
 }
 
 void AppClass::Update(void)
