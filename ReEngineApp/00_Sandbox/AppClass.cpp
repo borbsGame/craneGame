@@ -18,6 +18,8 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 2.5f, 15.0f),//Camera position
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
+
+	m_m4Falcon = matrix4();
 	//Load a model onto the Mesh manager
 	m_pMeshMngr->LoadModel("Lego\\Unikitty.bto", "Unikitty");
 }

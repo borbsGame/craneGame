@@ -15,6 +15,10 @@ class AppClass : public ReEngAppClass
 public:
 	typedef ReEngAppClass super;
 
+	matrix4 m_m4Falcon;
+	matrix4 m_m4Birb;
+	matrix4 m_m4Hawk;
+
 	/*
 	USAGE: Constructor
 	ARGUMENTS: 
