@@ -22,6 +22,8 @@ void AppClass::InitVariables(void)
 	m_m4Falcon = matrix4();
 	m_m4FalconLeg = matrix4();
 
+	falconMove = vector3(0.0f, 85.0f, 0.0f);
+
 	//Load a model onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", "Falcon");
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
@@ -45,7 +47,11 @@ void AppClass::Update(void)
 	//Set the model matrix for the first model to be the arcball
 	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .1, .1)) * glm::translate(falconMove) * ToMatrix4(m_qArcBall), "Falcon");
 
-	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .3, .1)) * glm::translate(falconMove) * glm::translate(0.0f,-.1f,0.0f)  * ToMatrix4(m_qArcBall), "FalconLeg");
+	m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
+	//m_m4FalconLeg *= glm::translate(falconMove);
+
+	//m_pMeshMngr->
+	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, 15, .1)) * glm::translate(vector3(falconMove.x, 3 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
 	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");

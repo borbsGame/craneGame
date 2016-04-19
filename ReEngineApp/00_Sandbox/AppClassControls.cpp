@@ -6,8 +6,8 @@ void AppClass::ProcessKeyboard(void)
 
 #pragma region ON_KEY_PRESS_RELEASE
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
-				bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
-				bLastEscape = false, bLastF = false;
+		bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
+		bLastEscape = false, bLastF = false;
 #define ON_KEY_PRESS_RELEASE(key, pressed_action, released_action){  \
 			bool pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::key);			\
 			if(pressed){											\
@@ -17,23 +17,23 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Modifiers
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
 		bModifier = true;
 #pragma endregion
 
 #pragma region Camera Positioning
-	if(bModifier)
+	if (bModifier)
 		fSpeed *= 10.0f;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		m_pCameraMngr->MoveForward(fSpeed);
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		m_pCameraMngr->MoveForward(-fSpeed);
-	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		m_pCameraMngr->MoveSideways(-fSpeed);
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		m_pCameraMngr->MoveSideways(fSpeed);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
@@ -47,16 +47,22 @@ void AppClass::ProcessKeyboard(void)
 	if (bModifier)
 		fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		falconMove.x -= 0.1f;
+		falconMove.x -= 0.5f;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		falconMove.x += 0.1f;
+		falconMove.x += 0.5f;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		falconMove.y -= 0.1f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		if (legMove <= 0.1) {
+			legMove += 0.005f;
+		}
+	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		falconMove.y += 0.1f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		if (legMove >= -0.7) {
+			legMove -= 0.005f;
+		}
+	}
 #pragma endregion
 
 #pragma region Other Actions
