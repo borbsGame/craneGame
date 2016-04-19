@@ -53,7 +53,7 @@ void AppClass::ProcessKeyboard(void)
 		falconMove.x += 0.5f;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (legMove <= 0.1) {
+		if (legMove <= -0.135) {
 			legMove += 0.005f;
 		}
 	}
