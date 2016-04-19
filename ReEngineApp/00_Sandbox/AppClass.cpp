@@ -1,4 +1,8 @@
 #include "AppClass.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h> 
+
 void AppClass::InitWindow(String a_sWindowName)
 {
 	super::InitWindow("Sandbox"); // Window Name
@@ -22,11 +26,27 @@ void AppClass::InitVariables(void)
 	m_m4Falcon = matrix4();
 	m_m4FalconLeg = matrix4();
 
+<<<<<<< HEAD
 	falconMove = vector3(0.0f, 85.0f, 0.0f);
 
 	//Load a model onto the Mesh manager
+=======
+	//Load models onto the Mesh manager
+>>>>>>> f11d19b3243c61da648bf0669ffeb917e6fe5b55
 	m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", "Falcon");
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
+	m_pMeshMngr->LoadModel("Birbs\\nest.fbx", "Nest");
+
+	srand(time(NULL));
+	//Iterate through prey list, load models and create positions
+	for (int i = 0; i < numPrey; i++) {
+		String sInstance = "Birb_" + std::to_string(i);
+		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
+
+		if(rand() % 2 == 0) preyList.push_back(vector3(rand() % 80, 0.0f, 0.0f));
+		else preyList.push_back(vector3(rand() % 100 * -1, 0.0f, 0.0f));
+		
+	}
 }
 
 void AppClass::Update(void)
@@ -44,14 +64,27 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 	
-	//Set the model matrix for the first model to be the arcball
+	//Set the model matricies for models
+	//Falcon Models
 	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .1, .1)) * glm::translate(falconMove) * ToMatrix4(m_qArcBall), "Falcon");
+<<<<<<< HEAD
 
 	m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
 	//m_m4FalconLeg *= glm::translate(falconMove);
 
 	//m_pMeshMngr->
 	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, 15, .1)) * glm::translate(vector3(falconMove.x, 3 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
+=======
+	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .3, .1)) * glm::translate(falconMove) * glm::translate(0.0f,-.1f,0.0f)  * ToMatrix4(m_qArcBall), "FalconLeg");
+
+	//Nest Model
+	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.3, .3, .3)) * glm::translate(25.0f, 0.0f, 0.0f), "Nest");
+
+	//Set Model Matrices for all birbs in preylist
+	for (int i = 0; i < numPrey; i++) {
+		 m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.07, .07, .07)) * glm::translate(preyList[i]), "Birb_" + std::to_string(i));
+	}
+>>>>>>> f11d19b3243c61da648bf0669ffeb917e6fe5b55
 	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
