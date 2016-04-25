@@ -8,6 +8,11 @@ Date: 2015/09 (Last Modified on: 15/11)
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
 
+#include "Player.h"
+#include"Birb.h"
+#include"Hawk.h"
+#include"EntityManager.h"
+
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -15,16 +20,18 @@ class AppClass : public ReEngAppClass
 public:
 	typedef ReEngAppClass super;
 
-	matrix4 m_m4Falcon;
+	//matrix4 m_m4Falcon;
 	matrix4 m_m4FalconLeg;
-	matrix4 m_m4Birb;
-	matrix4 m_m4Hawk;
+	//matrix4 m_m4Birb;
+	//matrix4 m_m4Hawk;
+	EntityManager* entityManager;
+	Player* player;
 
-	std::vector<vector3> preyList;
-	int numPrey = 8;
+	//std::vector<vector3> preyList;
+	//int numPrey = 8;
 
 	//for movement
-	vector3 falconMove = vector3(0.0f, 10.0f, 0.0f);
+	//vector3 falconMove = vector3(0.0f, 10.0f, 0.0f);
 	float legMove = 0.0f;
 
 	/*

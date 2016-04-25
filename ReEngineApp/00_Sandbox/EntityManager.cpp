@@ -138,6 +138,9 @@ void EntityManager::renderAllBO() {
 void EntityManager::setModelMatricies(){
 	for each(Entity* entity in entitiesList) {
 		mesh->SetModelMatrix(entity->getModelMatrix(), entity->getRenderID());
+
+		//Reset BO Model Matrix
+		//entity->getBO()->SetModelMatrix(mesh->GetModelMatrix(entity->getRenderID()));
 	}
 }
 void EntityManager::updateEntities() {

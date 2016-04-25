@@ -7,7 +7,7 @@ Entity::Entity(std::string renderID, MeshManagerSingleton* meshMngr)
 	this->renderID = renderID;
 	boundingObject = new BoundingObject(meshMngr->GetVertexList(renderID));
 	
-	scale = vector3(1.0f, 1.0f, 1.0f);
+	//scale = vector3(1.0f, 1.0f, 0.1f);
 	position = vector3(0.0f, 0.0f, 0.0f);
 	rotation = glm::angleAxis(0.0f, vector3(0.0f, 1.0f, 0.0f));
 }
@@ -25,7 +25,8 @@ std::string Entity::getType() {
 	return this->type;
 }
 matrix4 Entity::getModelMatrix() {
-	return glm::scale(scale) * glm::translate(position) * glm::mat4_cast(rotation);
+	//return glm::scale(scale) * glm::translate(position) * glm::mat4_cast(rotation);
+	return glm::translate(position) * glm::mat4_cast(rotation);
 }
 BoundingObject* Entity::getBO() {
 	return this->boundingObject;

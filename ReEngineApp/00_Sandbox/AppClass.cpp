@@ -23,25 +23,37 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
 
-	m_m4Falcon = matrix4();
-	m_m4FalconLeg = matrix4();
 
-	falconMove = vector3(0.0f, 85.0f, 0.0f);
+	entityManager = EntityManager::GetInstance();
+	entityManager->setMeshManager(m_pMeshMngr);
+
+	//Initialize Player
+	m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", "Falcon");
+	player = new Player("Falcon", m_pMeshMngr);
+	player->setPosition(vector3(0.0f, 8.0f, 0.0f));
+	entityManager->addEntity(player);
+
+	//Initialize Nest
+	m_pMeshMngr->LoadModel("Birbs\\nest.fbx", "Nest");
+	Birb* nest = new Birb("Nest", m_pMeshMngr);
+	nest->setPosition(vector3(8.0f, 0.0f, 0.0f));
+	entityManager->addEntity(nest);
 
 	//Load models onto the Mesh manager
-	m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", "Falcon");
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
-	m_pMeshMngr->LoadModel("Birbs\\nest.fbx", "Nest");
 
 	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
-	for (int i = 0; i < numPrey; i++) {
+	for (int i = 0; i < 8; i++) {
 		String sInstance = "Birb_" + std::to_string(i);
 		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
 
-		if(rand() % 2 == 0) preyList.push_back(vector3(rand() % 80, 0.0f, 0.0f));
-		else preyList.push_back(vector3(rand() % 100 * -1, 0.0f, 0.0f));
+		Birb* birb = new Birb(sInstance, m_pMeshMngr);
+
+		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 8, 0.0f, 0.0f));
+		else birb->setPosition(vector3(rand() % 10 * -1, 0.0f, 0.0f));
 		
+		entityManager->addEntity(birb);
 	}
 }
 
@@ -60,24 +72,19 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 	
-	//Set the model matricies for models
-	//Falcon Models
-	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .1, .1)) * glm::translate(falconMove) * ToMatrix4(m_qArcBall), "Falcon");
 
 	m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
 	//m_m4FalconLeg *= glm::translate(falconMove);
 
-	//m_pMeshMngr->
-	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, 15, .1)) * glm::translate(vector3(falconMove.x, 3.2 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
+	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(1.0f, 1.0f, 1.0f)) * glm::translate(vector3(player->getPosition().x, 3.2 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
 	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .3, .1)) * glm::translate(falconMove) * glm::translate(0.0f,-.1f,0.0f)  * ToMatrix4(m_qArcBall), "FalconLeg");
 
-	//Nest Model
-	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.3, .3, .3)) * glm::translate(25.0f, 0.0f, 0.0f), "Nest");
-
-	//Set Model Matrices for all birbs in preylist
-	for (int i = 0; i < numPrey; i++) {
-		 m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.07, .07, .07)) * glm::translate(preyList[i]), "Birb_" + std::to_string(i));
-	}
+	entityManager->setModelMatricies();
+	entityManager->checkCollisions();
+	
+	player->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Falcon"));
+	//entityManager->renderAllBO();
+	player->getBO()->drawBO(m_pMeshMngr);
 	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
