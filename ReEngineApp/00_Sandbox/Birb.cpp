@@ -2,8 +2,9 @@
 
 
 
-Birb::Birb() : Entity()
+Birb::Birb(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(renderID, meshMngr)
 {
+	this->type = "Birb";
 }
 
 

@@ -8,7 +8,7 @@ class Hawk :
 	public Entity
 {
 public:
-	Hawk();
+	Hawk(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Hawk();
 };
 #endif //__HAWK_H_

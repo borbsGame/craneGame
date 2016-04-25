@@ -8,7 +8,7 @@ class Birb :
 	public Entity
 {
 public:
-	Birb();
+	Birb(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Birb();
 };
 #endif //__BIRB_H_

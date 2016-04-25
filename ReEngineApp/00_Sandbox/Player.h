@@ -11,7 +11,7 @@ public:
 	vector3 bodyPosition;
 	vector3 legPosition;
 
-	Player();
+	Player(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Player();
 };
 #endif //__PLAYER_H_
