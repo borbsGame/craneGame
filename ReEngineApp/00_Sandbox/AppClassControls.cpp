@@ -53,14 +53,14 @@ void AppClass::ProcessKeyboard(void)
 		player->setPosition(vector3(player->getPosition().x + 0.5f, player->getPosition().y, player->getPosition().z));
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (legMove <= -0.135) {
-			legMove += 0.005f;
+		if (legMove <= 40) {
+			legMove += 0.5f;
 		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		if (legMove >= -0.7) {
-			legMove -= 0.005f;
+		if (legMove >= 0) {
+			legMove -= 0.5f;
 		}
 	}
 #pragma endregion

@@ -5,7 +5,7 @@
 
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("Sandbox"); // Window Name
+	super::InitWindow("Birb Craner"); // Window Name
 
 	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
@@ -73,10 +73,11 @@ void AppClass::Update(void)
 	ArcBall();
 	
 
-	m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
+	//m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
 	//m_m4FalconLeg *= glm::translate(falconMove);
 
-	m_pMeshMngr->SetModelMatrix(glm::scale(vector3(1.0f, 1.0f, 1.0f)) * glm::translate(vector3(player->getPosition().x, 3.2 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z))* glm::translate(vector3(0.0f, legMove * 0.12, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)), "FalconLeg");
+	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(player->getPosition().x, 1.0f, 1.0f)) * glm::translate(vector3(player->getPosition().x, 3.2 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
 	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .3, .1)) * glm::translate(falconMove) * glm::translate(0.0f,-.1f,0.0f)  * ToMatrix4(m_qArcBall), "FalconLeg");
 
 	entityManager->setModelMatricies();
@@ -95,9 +96,6 @@ void AppClass::Update(void)
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
-
-	m_pMeshMngr->Print("Selection: ");
-	m_pMeshMngr->PrintLine(m_pMeshMngr->GetInstanceGroupName(m_selection.first, m_selection.second), REYELLOW);
 	
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
