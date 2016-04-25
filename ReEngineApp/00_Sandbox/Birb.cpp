@@ -2,7 +2,7 @@
 
 
 
-Birb::Birb()
+Birb::Birb() : Entity()
 {
 }
 

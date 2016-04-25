@@ -2,7 +2,7 @@
 
 
 
-Hawk::Hawk()
+Hawk::Hawk() : Entity()
 {
 }
 

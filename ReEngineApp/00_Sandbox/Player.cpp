@@ -2,7 +2,7 @@
 
 
 
-Player::Player()
+Player::Player() : Entity()
 {
 }
 

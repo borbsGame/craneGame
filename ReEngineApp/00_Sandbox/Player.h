@@ -1,7 +1,11 @@
-#pragma once
+#ifndef __PLAYER_H_
+#define __PLAYER_H_
+
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
-class Player
+#include "Entity.h"
+class Player:
+	public Entity
 {
 public:
 	vector3 bodyPosition;
@@ -10,4 +14,5 @@ public:
 	Player();
 	~Player();
 };
+#endif //__PLAYER_H_
 
