@@ -11,3 +11,7 @@ Hawk::Hawk(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(render
 Hawk::~Hawk()
 {
 }
+
+void Hawk::update() {
+	//Move from side to side
+}

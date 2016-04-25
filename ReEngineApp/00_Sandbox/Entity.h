@@ -19,7 +19,7 @@ public:
 	Entity(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Entity();
 
-	//virtual void update();
+	virtual void update() = 0;
 
 	std::string getRenderID();
 	std::string getType();

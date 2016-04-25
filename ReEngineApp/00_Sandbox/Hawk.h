@@ -10,5 +10,7 @@ class Hawk :
 public:
 	Hawk(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Hawk();
+
+	void update();
 };
 #endif //__HAWK_H_

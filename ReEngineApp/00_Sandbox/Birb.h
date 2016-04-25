@@ -7,8 +7,18 @@
 class Birb :
 	public Entity
 {
+	bool isHeld;
+	bool isFalling;
 public:
 	Birb(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Birb();
+
+	void update();
+
+	bool getIsHeld();
+	bool getIsFalling();
+
+	void setIsHeld(bool isHeld);
+	void setIsFalling(bool isFalling);
 };
 #endif //__BIRB_H_
