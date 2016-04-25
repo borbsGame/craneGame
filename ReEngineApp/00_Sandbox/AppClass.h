@@ -1,7 +1,4 @@
-/*----------------------------------------------
-Programmer: Alberto Bobadilla (labigm@gmail.com)
-Date: 2015/09 (Last Modified on: 15/11)
-----------------------------------------------*/
+
 #ifndef __APPLICATION_H_
 #define __APPLICATION_H_
 
