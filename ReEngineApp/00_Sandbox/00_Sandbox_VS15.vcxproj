@@ -160,6 +160,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClCompile Include="AppClassControls.cpp" />
     <ClCompile Include="Birb.cpp" />
     <ClCompile Include="BoundingObject.cpp" />
+    <ClCompile Include="Claw.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Hawk.cpp" />
@@ -171,6 +172,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClInclude Include="AppClass.h" />
     <ClInclude Include="Birb.h" />
     <ClInclude Include="BoundingObject.h" />
+    <ClInclude Include="Claw.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Hawk.h" />

@@ -6,9 +6,10 @@
 #include <SFML\Graphics.hpp>
 
 #include "Player.h"
-#include"Birb.h"
-#include"Hawk.h"
-#include"EntityManager.h"
+#include "Birb.h"
+#include "Hawk.h"
+#include "EntityManager.h"
+#include "Claw.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
@@ -23,7 +24,7 @@ public:
 	//matrix4 m_m4Hawk;
 	EntityManager* entityManager;
 	Player* player;
-
+	Claw* claw;
 	//std::vector<vector3> preyList;
 	//int numPrey = 8;
 

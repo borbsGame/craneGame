@@ -33,6 +33,11 @@ void AppClass::InitVariables(void)
 	player->setPosition(vector3(0.0f, 8.0f, 0.0f));
 	entityManager->addEntity(player);
 
+	m_pMeshMngr->LoadModel("Birbs\\falconClaw.fbx", "FalconClaw");
+	claw = new Claw("FalconClaw", m_pMeshMngr);
+	claw->setPosition(vector3(0.0f, 8.0f, 0.0f));
+	entityManager->addEntity(claw);
+
 	//Initialize Nest
 	m_pMeshMngr->LoadModel("Birbs\\nest.fbx", "Nest");
 	Birb* nest = new Birb("Nest", m_pMeshMngr);
@@ -41,6 +46,7 @@ void AppClass::InitVariables(void)
 
 	//Load models onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
+	
 
 	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
@@ -76,9 +82,15 @@ void AppClass::Update(void)
 	//m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
 	//m_m4FalconLeg *= glm::translate(falconMove);
 
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z))* glm::translate(vector3(0.0f, legMove * 0.12, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)), "FalconLeg");
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z))* glm::translate(vector3(0.0f, -legMove * 0.1, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)), "FalconLeg");
 	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(player->getPosition().x, 1.0f, 1.0f)) * glm::translate(vector3(player->getPosition().x, 3.2 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
 	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .3, .1)) * glm::translate(falconMove) * glm::translate(0.0f,-.1f,0.0f)  * ToMatrix4(m_qArcBall), "FalconLeg");
+
+	//m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z)) * glm::translate(vector3(0.0f, -legMove * .2, 0.0f)), "FalconClaw");
+	vector3 temp;
+	temp = vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z);
+	temp += vector3(0.0f, -legMove *.2, 0.0f);
+	claw->setPosition(temp);
 
 	entityManager->setModelMatricies();
 	entityManager->checkCollisions();
@@ -87,6 +99,10 @@ void AppClass::Update(void)
 	//entityManager->renderAllBO();
 	player->getBO()->drawBO(m_pMeshMngr);
 	
+	claw->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("FalconClaw"));
+	//entityManager->renderAllBO();
+	claw->getBO()->drawBO(m_pMeshMngr);
+
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
