@@ -58,10 +58,12 @@ void EntityManager::checkCollisions()
 	int numofBO = getNumEntities();
 	static int index = 0;
 
-	for (int i = 1; i < numofBO; i++)
+	/*for (int i = 1; i < numofBO; i++)
 	{
 		Entity* temp1 = entitiesList.at(index);
 		Entity* temp2 = getEntity(i);
+
+		std::cout << "Temp1 Type: " << temp1->getType() << "Temp2 Type: " << temp2->getType() << std::endl;
 
 		if (temp1->getBO()->IsColliding(temp2->getBO()))
 		{
@@ -81,6 +83,19 @@ void EntityManager::checkCollisions()
 	if (index == numofBO)
 	{
 		index = 0;
+	}*/
+	for (int i = 0; i < getNumEntities(); i++) {
+		for(int j = 0; j < getNumEntities(); j++) {
+			if (i != j) {
+				Entity* temp1 = getEntity(i);
+				Entity* temp2 = getEntity(j);
+
+				if (temp1->getBO()->IsColliding(temp2->getBO()))
+				{
+					collide(temp1, temp2);
+				}
+			}
+		}
 	}
 
 
@@ -88,11 +103,26 @@ void EntityManager::checkCollisions()
 
 void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 {
+	
 	if (entityOne->getType() == "Player") {
 
 	}
+	else if (entityOne->getType() == "Claw") {
+		if (entityTwo->getType() == "Birb") {
+			Claw* tempClaw = ((Claw*)entityOne);
+			Birb* tempBirb = ((Birb*)entityTwo);
+			if (!tempClaw->getIsHolding()) {
+				tempClaw->setIsHolding(true);
+				tempClaw->setHeldBirb(tempBirb);
+
+				tempBirb->setIsHeld(true);
+
+				//entityTwo->setPosition(entityOne->getPosition());
+			}
+			
+		}
+	}
 	else if (entityOne->getType() == "Birb") {
-		
 	}
 	else if (entityOne->getType() == "Hawk") {
 
@@ -140,11 +170,13 @@ void EntityManager::setModelMatricies(){
 		mesh->SetModelMatrix(entity->getModelMatrix(), entity->getRenderID());
 
 		//Reset BO Model Matrix
-		//entity->getBO()->SetModelMatrix(mesh->GetModelMatrix(entity->getRenderID()));
+		entity->getBO()->SetModelMatrix(mesh->GetModelMatrix(entity->getRenderID()));
 	}
 }
 void EntityManager::updateEntities() {
-
+	for each(Entity* entity in entitiesList) {
+		entity->update();
+	}
 }
 
 

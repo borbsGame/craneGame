@@ -5,6 +5,11 @@
 #include "BoundingObject.h"
 #include "Entity.h"
 
+#include "Player.h"
+#include "Birb.h"
+#include "Hawk.h"
+#include "Claw.h"
+
 class EntityManager
 {
 	static EntityManager* instance;

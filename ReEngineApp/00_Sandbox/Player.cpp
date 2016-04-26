@@ -14,7 +14,5 @@ Player::~Player()
 }
 
 void Player::update() {
-	if (isHolding) {
-		heldBirb->setPosition(this->getPosition());
-	}
+
 }

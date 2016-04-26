@@ -26,7 +26,6 @@ std::string Entity::getType() {
 }
 matrix4 Entity::getModelMatrix() {
 	return glm::scale(scale) * glm::translate(position) * glm::mat4_cast(rotation);
-	//return glm::translate(position) * glm::mat4_cast(rotation);
 }
 BoundingObject* Entity::getBO() {
 	return this->boundingObject;

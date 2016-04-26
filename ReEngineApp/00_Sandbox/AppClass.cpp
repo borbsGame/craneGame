@@ -38,12 +38,6 @@ void AppClass::InitVariables(void)
 	claw->setPosition(vector3(0.0f, 8.0f, 0.0f));
 	entityManager->addEntity(claw);
 
-	//Initialize Nest
-	m_pMeshMngr->LoadModel("Birbs\\nest.fbx", "Nest");
-	Birb* nest = new Birb("Nest", m_pMeshMngr);
-	nest->setPosition(vector3(8.0f, 0.0f, 0.0f));
-	entityManager->addEntity(nest);
-
 	//Load models onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
 	
@@ -92,7 +86,9 @@ void AppClass::Update(void)
 	temp += vector3(0.0f, -legMove *.2, 0.0f);
 	claw->setPosition(temp);
 
+	
 	entityManager->setModelMatricies();
+	entityManager->updateEntities();
 	entityManager->checkCollisions();
 	
 	player->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Falcon"));
@@ -100,8 +96,9 @@ void AppClass::Update(void)
 	player->getBO()->drawBO(m_pMeshMngr);
 	
 	claw->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("FalconClaw"));
-	//entityManager->renderAllBO();
+	entityManager->renderAllBO();
 	claw->getBO()->drawBO(m_pMeshMngr);
+
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
