@@ -160,8 +160,9 @@ void EntityManager::renderSpecificBO(BoundingObject* boundObject) {
 }
 void EntityManager::renderAllBO() {
 	for each(Entity* entity in entitiesList) {
-		entity->getBO()->drawBO(mesh);
+		//entity->getBO()->drawBO(mesh);
 		entity->getBO()->setBoxVisibility(true);
+		entity->getBO()->DisplayOriented(mesh);
 	}
 }
 
