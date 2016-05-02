@@ -408,8 +408,8 @@ namespace ReEng
 
 			// Indicate window properties
 			m_pSystem->SetWindowName(a_sWindowName);
-			m_pSystem->SetWindowWidth(1080);
-			m_pSystem->SetWindowHeight(720);
+			m_pSystem->SetWindowWidth(1280);
+			m_pSystem->SetWindowHeight(900);
 			m_pSystem->SetWindowFullscreen(false);
 			m_pSystem->SetWindowBorderless(false);
 
