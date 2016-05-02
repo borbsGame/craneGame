@@ -4,6 +4,8 @@
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
+#include <iostream>
+#include  <vector>
 
 #include "Player.h"
 #include "Birb.h"
@@ -25,6 +27,11 @@ public:
 	EntityManager* entityManager;
 	Player* player;
 	Claw* claw;
+	//hawk stuff
+	Hawk* hawk;
+	int hawkNum = 5;
+	std::vector<Hawk*> hawks;
+	
 	//std::vector<vector3> preyList;
 	//int numPrey = 8;
 
