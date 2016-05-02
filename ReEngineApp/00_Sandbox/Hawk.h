@@ -12,5 +12,10 @@ public:
 	~Hawk();
 
 	void update();
+
+	int getSpeed();
+
+private:
+	int hawkspeed = .5;
 };
 #endif //__HAWK_H_

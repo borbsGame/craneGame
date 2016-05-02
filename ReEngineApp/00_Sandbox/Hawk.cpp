@@ -15,3 +15,7 @@ Hawk::~Hawk()
 void Hawk::update() {
 	//Move from side to side
 }
+
+int Hawk::getSpeed() {
+	return hawkspeed;
+}
