@@ -12,6 +12,7 @@ Birb::~Birb()
 }
 
 void Birb::update() {
+
 	if (isFalling) {
 		position.y -= .05f;
 	}

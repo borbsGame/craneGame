@@ -50,3 +50,31 @@ void Entity::setScale(vector3 scale) {
 void Entity::setRotation(glm::quat rotation) {
 	this->rotation = rotation;
 }
+
+//Alberto's
+void Entity::SetVelocity(vector3 a_v3Velocity) { m_v3Velocity = a_v3Velocity; }
+void Entity::SetMaxVelocity(float a_fMaxVelocity) { m_fMaxVelocity = a_fMaxVelocity; }
+void Entity::SetMass(float a_fMass) { m_fMass = a_fMass; }
+void Entity::SetFriction(float a_fFriction) { m_fFriction = a_fFriction; }
+void Entity::SetForce(vector3 a_v3Force) { m_v3Force = a_v3Force; }
+
+float Entity::GetMass(void) { return m_fMass; }
+vector3 Entity::GetLastPosition(void) { return m_v3PositionPrevious; }
+vector3 Entity::GetPosition(void) { return m_v3Position; }
+vector3 Entity::GetForce(void) { return m_v3Force; }
+vector3 Entity::GetVelocity(void) { return m_v3Velocity; }
+
+void Entity::SetGravityAffected(bool a_bGravity) { m_bGravityAffected = a_bGravity; }
+bool Entity::GetGravityAffected(void) { return m_bGravityAffected; }
+
+//---
+void Entity::ApplyForce(vector3 a_v3Force)
+{
+	//force = mass * acceleration
+	m_v3Force += a_v3Force / m_fMass;
+}
+void Entity::ApplyGravity(float a_fDeltaTime)
+{
+	if (m_bGravityAffected)
+		m_v3Force += vector3(0.0f, -9.81f, 0.0f) * a_fDeltaTime;
+}

@@ -7,6 +7,10 @@ void AppClass::InitWindow(String a_sWindowName)
 {
 	super::InitWindow("Birb Craner"); // Window Name
 
+	//Here for changing the screen resolution
+	m_pSystem->SetWindowHeight(1000);
+	m_pSystem->SetWindowWidth(800);
+
 	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
 	//is on the InitVariables it will always force it regardless of the .cfg

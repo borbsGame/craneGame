@@ -19,9 +19,17 @@ void EntityManager::ReleaseInstance()
 	}
 }
 
+void EntityManager::Init(void)
+{
+	m_nEntityCount = 0;
+}
+
 void EntityManager::addEntity(Entity* entity)
 {
 	entitiesList.push_back(entity);
+
+	m_map[entity->getRenderID()] = m_nEntityCount;
+	m_nEntityCount++;
 }
 
 void EntityManager::createBoundingObject(std::vector<vector3> vertices)
@@ -160,8 +168,9 @@ void EntityManager::renderSpecificBO(BoundingObject* boundObject) {
 }
 void EntityManager::renderAllBO() {
 	for each(Entity* entity in entitiesList) {
-		entity->getBO()->drawBO(mesh);
+		//entity->getBO()->drawBO(mesh);
 		entity->getBO()->setBoxVisibility(true);
+		entity->getBO()->DisplayOriented(mesh);
 	}
 }
 
@@ -173,6 +182,65 @@ void EntityManager::setModelMatricies(){
 		entity->getBO()->SetModelMatrix(mesh->GetModelMatrix(entity->getRenderID()));
 	}
 }
+
+//Alberto's
+int EntityManager::GetIndex(String a_sIndex)
+{
+	//Find the related index
+	auto var = m_map.find(a_sIndex);
+	//If not found return -1
+	if (var == m_map.end())
+		return -1;
+	return var->second;//Get the index
+}
+
+void EntityManager::SetMass(float a_fMass, String a_sEntityName)
+{
+	int nIndex = GetIndex(a_sEntityName);
+	if (nIndex >= 0)
+		entitiesList[nIndex]->SetMass(a_fMass);
+}
+void EntityManager::SetFriction(float a_fFriction, String a_sEntityName)
+{
+	int nIndex = GetIndex(a_sEntityName);
+	if (nIndex >= 0)
+		entitiesList[nIndex]->SetFriction(a_fFriction);
+}
+void EntityManager::SetMaxVelocity(float a_fMaxVelocity, String a_sEntityName)
+{
+	int nIndex = GetIndex(a_sEntityName);
+	if (nIndex >= 0)
+		entitiesList[nIndex]->SetMaxVelocity(a_fMaxVelocity);
+}
+/*void EntityManager::SetPosition(vector3 a_v3Position, String a_sEntityName)
+{
+	int nIndex = GetIndex(a_sEntityName);
+	if (nIndex >= 0)
+		entitiesList[nIndex]->SetPosition(a_v3Position);
+}*/
+void EntityManager::SetVelocity(vector3 a_v3Velocity, String a_sEntityName)
+{
+	int nIndex = GetIndex(a_sEntityName);
+	if (nIndex >= 0)
+		entitiesList[nIndex]->SetVelocity(a_v3Velocity);
+}
+
+void EntityManager::SetGravityAffected(bool a_bGravity, String a_sEntityName)
+{
+	int nIndex = GetIndex(a_sEntityName);
+	if (nIndex >= 0)
+		entitiesList[nIndex]->SetGravityAffected(a_bGravity);
+}
+//--- Non Standard Singleton Methods
+void EntityManager::ApplyForce(vector3 a_v3Force, String a_sEntity)
+{
+	int nIndex = GetIndex(a_sEntity);
+	if (nIndex >= 0)
+	{
+		entitiesList[nIndex]->ApplyForce(a_v3Force);
+	}
+}
+
 void EntityManager::updateEntities() {
 	for each(Entity* entity in entitiesList) {
 		entity->update();
