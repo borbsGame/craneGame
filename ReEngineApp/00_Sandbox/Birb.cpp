@@ -12,7 +12,18 @@ Birb::~Birb()
 }
 
 void Birb::update() {
+	/*Karen's Notes
+		Get the number of entries in EntityManager
+		Go through the list and check if it's a Birb
+		If Birb
+			set forces...
+			if setFalling is true
+			getOriginalheight and then do that shit below 
 
+			s = ut + at^2/2. s is distance, u is the initial speed (in this case zero), t is time, and a is acceleration 
+
+			Reference https://www.physicsforums.com/threads/bouncing-ball-equation.403229/
+	*/
 	if (isFalling) {
 		position.y -= .05f;
 	}

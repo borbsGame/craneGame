@@ -103,6 +103,12 @@ void AppClass::Update(void)
 	entityManager->renderAllBO();
 	claw->getBO()->drawBO(m_pMeshMngr);
 
+	//To update Birbs
+	int numOfEntities= entityManager->getNumEntities();
+	for (int i = 0; i < numOfEntities; i++)
+	{
+
+	}
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
