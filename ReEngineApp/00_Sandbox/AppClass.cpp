@@ -52,7 +52,7 @@ void AppClass::InitVariables(void)
 		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
 		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
 
-		entityManager->addEntity(hawks.end);
+		//entityManager->addEntity(hawks.end);
 	}
 	
 
