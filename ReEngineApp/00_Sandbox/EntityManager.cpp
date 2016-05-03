@@ -119,7 +119,7 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 		if (entityTwo->getType() == "Birb") {
 			Claw* tempClaw = ((Claw*)entityOne);
 			Birb* tempBirb = ((Birb*)entityTwo);
-			if (!tempClaw->getIsHolding()) {
+			if (!tempClaw->getIsHolding() && !tempBirb->getIsFalling()) {
 				tempClaw->setIsHolding(true);
 				tempClaw->setHeldBirb(tempBirb);
 
@@ -134,7 +134,7 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 		if (entityTwo->getType() == "Claw") {
 			Claw* tempClaw = ((Claw*)entityTwo);
 			Birb* tempBirb = ((Birb*)entityOne);
-			if (!tempClaw->getIsHolding()) {
+			if (!tempClaw->getIsHolding() && !tempBirb->getIsFalling()) {
 				tempClaw->setIsHolding(true);
 				tempClaw->setHeldBirb(tempBirb);
 

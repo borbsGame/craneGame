@@ -265,9 +265,6 @@ bool BoundingObject::IsColliding(BoundingObject* const a_pOther)
 
 
 	if (bColliding) {
-		if (RunSAT(a_pOther)) {
-			std::cout << "hey";
-		}
 		return RunSAT(a_pOther);
 	}
 

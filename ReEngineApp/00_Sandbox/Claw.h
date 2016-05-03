@@ -22,6 +22,8 @@ public:
 
 	void setHeldBirb(Birb* heldBirb);
 	void setIsHolding(bool isHolding);
+
+	void dropBirb();
 };
 #endif //__CLAW_H_
 
