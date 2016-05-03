@@ -16,11 +16,11 @@ Hawk::~Hawk()
 
 void Hawk::update(float a_fDeltaTime) {
 	//Move from side to side
-	if (position.x > 6)
+	if (position.x > 6.5)
 	{
 		SetForce(vector3(-2.0f, 0.0f, 0.0f));
 	}
-	else if (position.x < -6)
+	else if (position.x < -6.5)
 	{
 		SetForce(vector3(2.0f, 0.0f, 0.0f));
 	}
