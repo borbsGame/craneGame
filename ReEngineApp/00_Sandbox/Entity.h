@@ -49,6 +49,8 @@ public:
 
 	int test = 0;
 
+	void update(float a_fDeltaTime);
+
 	//Alberto's
 	void SetMaxVelocity(float a_fMaxVelocity);
 	/*
