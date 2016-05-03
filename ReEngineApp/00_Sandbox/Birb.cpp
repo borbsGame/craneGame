@@ -4,6 +4,7 @@
 Birb::Birb(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(renderID, meshMngr)
 {
 	this->type = "Birb";
+	SetGravityAffected(false);
 }
 
 
@@ -12,6 +13,8 @@ Birb::~Birb()
 }
 
 void Birb::update(float a_fDeltaTime) {
+	
+
 	/*Karen's Notes
 		Get the number of entries in EntityManager CHECK
 		Go through the list and check if it's a Birb 
@@ -25,7 +28,10 @@ void Birb::update(float a_fDeltaTime) {
 			Reference https://www.physicsforums.com/threads/bouncing-ball-equation.403229/
 	*/
 	if (isFalling) {
-		//position.y -= .05f;
+		SetGravityAffected(true);
+	}
+	else {
+		SetGravityAffected(false);
 	}
 	
 	Entity::update(a_fDeltaTime);

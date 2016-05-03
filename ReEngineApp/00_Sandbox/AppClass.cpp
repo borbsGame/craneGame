@@ -140,7 +140,7 @@ void AppClass::Update(void)
 	static double bounce = fRunTime;
 
 	//To update Birbs
-	int numOfEntities= entityManager->getNumEntities();
+	/*int numOfEntities= entityManager->getNumEntities();
 	for (int i = 0; i < numOfEntities; i++)
 	{
 		Entity* currentEnt = entityManager->getEntity(i);
@@ -159,12 +159,9 @@ void AppClass::Update(void)
 					bounce = 0;
 				}
 				currentBirb->ApplyForce(vector3(0.0f, y, 0.0f));
-				//float x = currentBirb->getPosition().x;
-				//float z = currentBirb->getPosition().z;
-				//currentBirb->setPosition(vector3(x, y, z));
 			}
 		}
-	}
+	}*/
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");

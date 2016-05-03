@@ -127,7 +127,12 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 
 				//entityTwo->setPosition(entityOne->getPosition());
 			}
-			
+		}
+		else if (entityTwo->getType() == "Hawk") {
+			Claw* tempClaw = ((Claw*)entityOne);
+			if (tempClaw->getIsHolding()) {
+				tempClaw->dropBirb();
+			}
 		}
 	}
 	else if (entityOne->getType() == "Birb") {
@@ -144,9 +149,17 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 			}
 
 		}
+		else if (entityTwo->getType() == "Hawk") {
+			
+		}
 	}
 	else if (entityOne->getType() == "Hawk") {
-
+		if (entityTwo->getType() == "Claw") {
+			Claw* tempClaw = ((Claw*)entityTwo);
+			if (tempClaw->getIsHolding()) {
+				tempClaw->dropBirb();
+			}
+		}
 	}
 	else if (entityOne->getType() == "Nest") {
 
