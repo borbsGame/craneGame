@@ -226,47 +226,52 @@ void BoundingObject::setBoxVisibility(bool isVisible) {
 
 bool BoundingObject::IsColliding(BoundingObject* const a_pOther)
 {
-	vector3 v3Temp = vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f));
-	vector3 v3Temp1 = vector3(a_pOther->GetModelMatrix() * vector4(a_pOther->GetCenterLocal(), 1.0f));
+	//Get all vectors in global space
+	vector3 v3Min = vector3(m_m4ToWorld * vector4(GetMin(), 1.0f));
+	vector3 v3Max = vector3(m_m4ToWorld * vector4(GetMax(), 1.0f));
 
-	bool bAreColliding = false;
-	bAreColliding = (glm::distance(v3Temp, v3Temp1) < m_fRadius + a_pOther->GetRadius());
+	vector3 v3MinO = vector3(a_pOther->GetModelMatrix() *vector4(a_pOther->GetMin(), 1.0f));
+	vector3 v3MaxO = vector3(a_pOther->GetModelMatrix() * vector4(a_pOther->GetMax(), 1.0f));
 
-	if (bAreColliding) {
+	/*
+	Are they colliding?
+	For Objects we will assume they are colliding, unless at least one of the following conditions is not met
+	*/
+	//first check the bounding sphere, if that is not colliding we can guarantee that there are no collision
+	if ((m_fRadius + a_pOther->GetRadius()) < glm::distance(m_v3CenterG, a_pOther->GetCenterGlobal()))
+		return false;
 
-		vector3 v3Temp = vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f));
-		vector3 v3Temp1 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->GetCenterLocal(), 1.0f));
+	//If the distance was smaller it might be colliding
 
-		bAreColliding = true;
-		vector3 vMin1 = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
-		vector3 vMax1 = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
-		vector3 vMin2 = vector3(a_pOther->GetModelMatrix() * vector4(a_pOther->GetMin(), 1.0f));
-		vector3 vMax2 = vector3(a_pOther->GetModelMatrix() * vector4(a_pOther->GetMax(), 1.0f));
+	bool bColliding = true;
 
-		//Check for X
-		if (vMax1.x < vMin2.x)
-			bAreColliding = false;
-		if (vMin1.x > vMax2.x)
-			bAreColliding = false;
+	//Check for X
+	if (m_v3MaxG.x < a_pOther->GetMinG().x)
+		bColliding = false;
+	if (m_v3MinG.x > a_pOther->GetMaxG().x)
+		bColliding = false;
 
-		//Check for Y
-		if (vMax1.y < vMin2.y)
-			bAreColliding = false;
-		if (vMin1.y > vMax2.y)
-			bAreColliding = false;
+	//Check for Y
+	if (m_v3MaxG.y < a_pOther->GetMinG().y)
+		bColliding = false;
+	if (m_v3MinG.y > a_pOther->GetMaxG().y)
+		bColliding = false;
 
-		//Check for Z
-		if (vMax1.z < vMin2.z)
-			bAreColliding = false;
-		if (vMin1.z > vMax2.z)
-			bAreColliding = false;
+	//Check for Z
+	if (m_v3MaxG.z < a_pOther->GetMinG().z)
+		bColliding = false;
+	if (m_v3MinG.z > a_pOther->GetMaxG().z)
+		bColliding = false;
 
-	}
-	if (bAreColliding) {
+
+	if (bColliding) {
+		if (RunSAT(a_pOther)) {
+			std::cout << "hey";
+		}
 		return RunSAT(a_pOther);
 	}
 
-	return bAreColliding;
+	return bColliding;
 }
 
 bool BoundingObject::RunSAT(BoundingObject* const a_pOther) {
@@ -382,7 +387,6 @@ bool BoundingObject::RunSAT(BoundingObject* const a_pOther) {
 	float c = abs(translation[1] * rot[0][2] - translation[0] * rot[1][2]);
 	float d = ra + rb;
 
-	//if no collisions are detected
 	return true;
 }
 
