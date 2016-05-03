@@ -2,7 +2,8 @@
 #define __BOUNDINGOBJECT_H_
 
 #include "RE\ReEng.h"
-
+#include <numeric>
+#include <stdlib.h>
 
 class BoundingObject
 {
