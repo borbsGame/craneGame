@@ -45,10 +45,14 @@ void AppClass::InitVariables(void)
 	//Load models onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
 	
+	m_pMeshMngr->LoadModel("Birbs\\falconBody.fbx", "Hawk");
+	hawk = new Hawk("Hawk", m_pMeshMngr);
+	hawk->setPosition(vector3(0.0f, 5.0f, 0.0f));
+	entityManager->addEntity(hawk);
 	//Initialize Hawks
-	for (int i = 0; i <= hawkNum; i++) {
+	/*for (int i = 0; i <= hawkNum; i++) {
 		String sInstance = "Hawk_" + std::to_string(i);
-		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
+		m_pMeshMngr->LoadModel("Birbs\\falconBody.fbx", sInstance);
 		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
 		//hawk = new Hawk(sInstance, m_pMeshMngr);
 
@@ -56,8 +60,9 @@ void AppClass::InitVariables(void)
 		else hawks.at(i)->setPosition(vector3(rand() % 5 * -1, rand() % 8 + 1, 0.0f));
 
 		entityManager->addEntity(hawks.at(i));
-	}
+	}*/
 	
+
 	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
 	for (int i = 0; i < 8; i++) {
@@ -91,7 +96,7 @@ void AppClass::Update(void)
 	/*for (int i = 0; i <= hawkNum; i++) {
 		float hawkspeed = hawks.at(i)->getSpeed();
 		String hawkModel = "Hawk_" + std::to_string(i);
-		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(hawks.at(i)->, hawks.at(i)->getPosition().y, hawks.at(i)->getPosition().z)), hawkModel);
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(hawks.at(i)->getPosition().x, hawks.at(i)->getPosition().y, hawks.at(i)->getPosition().z)), hawkModel);
 		hawks.at(i)->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix(hawkModel));
 		hawks.at(i)->getBO()->drawBO(m_pMeshMngr);
 	}*/
@@ -114,6 +119,9 @@ void AppClass::Update(void)
 	entityManager->updateEntities();
 	entityManager->checkCollisions();
 
+	hawk->update();
+	hawk->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Hawk"));
+	hawk->getBO()->drawBO(m_pMeshMngr);
 	
 	player->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Falcon"));
 	//entityManager->renderAllBO();
