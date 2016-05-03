@@ -13,8 +13,8 @@ Birb::~Birb()
 
 void Birb::update() {
 	/*Karen's Notes
-		Get the number of entries in EntityManager
-		Go through the list and check if it's a Birb
+		Get the number of entries in EntityManager CHECK
+		Go through the list and check if it's a Birb 
 		If Birb
 			set forces...
 			if setFalling is true

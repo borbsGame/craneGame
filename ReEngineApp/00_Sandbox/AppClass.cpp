@@ -46,16 +46,6 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
 	
 
-	//Initialize Hawks
-	for (int i = 0; i <= hawkNum; i++) {
-		String sInstance = "Hawk_" + std::to_string(i);
-		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
-		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
-
-		//entityManager->addEntity(hawks.end);
-	}
-	
-
 	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
 	for (int i = 0; i < 8; i++) {
@@ -113,11 +103,28 @@ void AppClass::Update(void)
 	entityManager->renderAllBO();
 	claw->getBO()->drawBO(m_pMeshMngr);
 
+	//to get the time for the equation 
+	//get time between calls
+	double fCallTime = m_pSystem->LapClock();
+	//counting the cumulative time
+	static double fRunTime = 0.0f;
+	fRunTime += fCallTime;
+
+
 	//To update Birbs
 	int numOfEntities= entityManager->getNumEntities();
 	for (int i = 0; i < numOfEntities; i++)
 	{
-
+		Entity* currentEnt = entityManager->getEntity(i);
+		if (currentEnt->getType() == "Birb")
+		{
+			Birb* currentBirb = ((Birb*)currentEnt);
+			if (currentBirb->getIsFalling())
+			{
+				//distance/y pos = (ut) initial speed * time This is always 0 + acceleration*timeSQUARED/2
+				currentBirb->ApplyForce(vector3(0.0f, -9.81f, 0.0f) * (static_cast<float>(pow(fRunTime,2.0))/2.0f));
+			}
+		}
 	}
 
 	//Adds all loaded instance to the render list
