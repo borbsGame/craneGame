@@ -27,12 +27,12 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
 
-
+	//Updates the Physics for each Entity or object that needs it in the window
 	entityManager = EntityManager::GetInstance();
 	entityManager->setMeshManager(m_pMeshMngr);
 
-	//Initialize Player
-	m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", "Falcon");
+	//Initialize Player and the falcon claw
+	m_pMeshMngr->LoadModel("Birbs\\falconBody.fbx", "Falcon");
 	player = new Player("Falcon", m_pMeshMngr);
 	player->setPosition(vector3(0.0f, 8.0f, 0.0f));
 	entityManager->addEntity(player);
@@ -45,6 +45,8 @@ void AppClass::InitVariables(void)
 	//Load models onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
 	
+<<<<<<< HEAD
+=======
 	//Initialize Hawks
 	for (int i = 0; i <= hawkNum; i++) {
 		String sInstance = "Hawk_" + std::to_string(i);
@@ -59,11 +61,12 @@ void AppClass::InitVariables(void)
 	}
 	
 
+>>>>>>> 67aefcbbebc95e5ff75b0d21b3c9bdcee4470aaa
 	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
 	for (int i = 0; i < 8; i++) {
 		String sInstance = "Birb_" + std::to_string(i);
-		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
+		m_pMeshMngr->LoadModel("Birbs\\birbBody.fbx", sInstance);
 
 		Birb* birb = new Birb(sInstance, m_pMeshMngr);
 
@@ -130,7 +133,7 @@ void AppClass::Update(void)
 	//counting the cumulative time
 	static double fRunTime = 0.0f;
 	fRunTime += fCallTime;
-
+	static double bounce = fRunTime;
 
 	//To update Birbs
 	int numOfEntities= entityManager->getNumEntities();
@@ -144,6 +147,17 @@ void AppClass::Update(void)
 			{
 				//distance/y pos = (ut) initial speed * time This is always 0 + acceleration*timeSQUARED/2
 				currentBirb->ApplyForce(vector3(0.0f, -9.81f, 0.0f) * (static_cast<float>(pow(fRunTime,2.0))/2.0f));
+			}
+			else
+			{
+				float y = -.03f * pow(bounce, 2.0) + 2.0 * bounce;
+				if (y < 0) {
+					bounce = 0;
+				}
+				currentBirb->ApplyForce(vector3(0.0f, y, 0.0f));
+				//float x = currentBirb->getPosition().x;
+				//float z = currentBirb->getPosition().z;
+				//currentBirb->setPosition(vector3(x, y, z));
 			}
 		}
 	}
