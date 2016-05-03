@@ -12,6 +12,31 @@ Entity::Entity(std::string renderID, MeshManagerSingleton* meshMngr)
 	rotation = glm::angleAxis(0.0f, vector3(0.0f, 1.0f, 0.0f));
 }
 
+void Entity::update(float a_fDeltaTime)
+{
+
+	//Apply friction
+	float fFriction = MapValue(m_fFriction, 0.0f, 1.0f, 1.0f, 0.0f);
+	m_v3Force = m_v3Force * fFriction;
+
+	//Apply Gravity
+	ApplyGravity(a_fDeltaTime);
+
+	//Calculate the velocity based on acceleration delta time
+	vector3 v3Velocity = m_v3Force * a_fDeltaTime;
+	//if(m_bGravityAffected)
+	//	v3Velocity += vector3(0.0f, -0.9f, 0.0f) * a_fDeltaTime;
+	
+	//Increase the velocity based on the acceleration
+	m_v3Velocity = glm::clamp(v3Velocity, -m_fMaxVelocity, m_fMaxVelocity);
+	//Set the position based on the position of this object and the acceleration
+	m_v3Position += m_v3Velocity;
+
+	//Transform to the position
+	matrix4 m4ToWorld = glm::translate(m_v3Position);
+
+
+}
 
 Entity::~Entity()
 {

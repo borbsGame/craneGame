@@ -63,6 +63,9 @@ void AppClass::ProcessKeyboard(void)
 			legMove -= 0.5f;
 		}
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		claw->dropBirb();
+	}
 #pragma endregion
 
 #pragma region Other Actions

@@ -119,7 +119,7 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 		if (entityTwo->getType() == "Birb") {
 			Claw* tempClaw = ((Claw*)entityOne);
 			Birb* tempBirb = ((Birb*)entityTwo);
-			if (!tempClaw->getIsHolding()) {
+			if (!tempClaw->getIsHolding() && !tempBirb->getIsFalling()) {
 				tempClaw->setIsHolding(true);
 				tempClaw->setHeldBirb(tempBirb);
 
@@ -131,6 +131,19 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 		}
 	}
 	else if (entityOne->getType() == "Birb") {
+		if (entityTwo->getType() == "Claw") {
+			Claw* tempClaw = ((Claw*)entityTwo);
+			Birb* tempBirb = ((Birb*)entityOne);
+			if (!tempClaw->getIsHolding() && !tempBirb->getIsFalling()) {
+				tempClaw->setIsHolding(true);
+				tempClaw->setHeldBirb(tempBirb);
+
+				tempBirb->setIsHeld(true);
+
+				//entityTwo->setPosition(entityOne->getPosition());
+			}
+
+		}
 	}
 	else if (entityOne->getType() == "Hawk") {
 
@@ -170,7 +183,7 @@ void EntityManager::renderAllBO() {
 	for each(Entity* entity in entitiesList) {
 		//entity->getBO()->drawBO(mesh);
 		entity->getBO()->setBoxVisibility(true);
-		entity->getBO()->DisplayOriented(mesh);
+		entity->getBO()->DisplayReAlligned(mesh);
 	}
 }
 

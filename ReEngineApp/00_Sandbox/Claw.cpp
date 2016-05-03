@@ -31,3 +31,9 @@ void Claw::setHeldBirb(Birb* heldBirb) {
 void Claw::setIsHolding(bool isHolding) {
 	this->isHolding = isHolding;
 }
+
+void Claw::dropBirb() {
+	isHolding = false;
+	heldBirb->setIsFalling(true);
+	heldBirb->setIsHeld(false);
+}
