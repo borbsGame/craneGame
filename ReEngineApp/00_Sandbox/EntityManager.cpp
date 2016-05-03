@@ -113,7 +113,13 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 {
 	
 	if (entityOne->getType() == "Player") {
-
+		if (entityTwo->getType() == "Claw") {
+			Claw* tempClaw = ((Claw*)entityTwo);
+			if (tempClaw->getIsHolding()) {
+				tempClaw->dropBirb();
+				tempClaw->getHeldBirb()->setPosition(vector3(1000, 1000, 0));
+			}
+		}
 	}
 	else if (entityOne->getType() == "Claw") {
 		if (entityTwo->getType() == "Birb") {
@@ -124,14 +130,19 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 				tempClaw->setHeldBirb(tempBirb);
 
 				tempBirb->setIsHeld(true);
-
-				//entityTwo->setPosition(entityOne->getPosition());
 			}
 		}
 		else if (entityTwo->getType() == "Hawk") {
 			Claw* tempClaw = ((Claw*)entityOne);
 			if (tempClaw->getIsHolding()) {
 				tempClaw->dropBirb();
+			}
+		}
+		else if (entityTwo->getType() == "Player") {
+			Claw* tempClaw = ((Claw*)entityOne);
+			if (tempClaw->getIsHolding()) {
+				tempClaw->dropBirb();
+				tempClaw->getHeldBirb()->setPosition(vector3(1000, 1000, 0));
 			}
 		}
 	}
@@ -149,8 +160,8 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 			}
 
 		}
-		else if (entityTwo->getType() == "Hawk") {
-			
+		else if (entityTwo->getType() == "Player") {
+
 		}
 	}
 	else if (entityOne->getType() == "Hawk") {
@@ -196,7 +207,7 @@ void EntityManager::renderAllBO() {
 	for each(Entity* entity in entitiesList) {
 		//entity->getBO()->drawBO(mesh);
 		entity->getBO()->setBoxVisibility(true);
-		entity->getBO()->DisplayReAlligned(mesh);
+		//entity->getBO()->DisplayReAlligned(mesh);
 	}
 }
 
