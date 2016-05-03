@@ -50,9 +50,13 @@ void AppClass::InitVariables(void)
 	for (int i = 0; i <= hawkNum; i++) {
 		String sInstance = "Hawk_" + std::to_string(i);
 		m_pMeshMngr->LoadModel("Birbs\\birb1.fbx", sInstance);
-		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
+		//hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
+		hawk = new Hawk(sInstance, m_pMeshMngr);
 
-		//entityManager->addEntity(hawks.end);
+		if (rand() % 2 == 0) hawk->setPosition(vector3(rand() % 5, rand() % 8 + 1, 0.0f));
+		else hawk->setPosition(vector3(rand() % 5 * -1, rand() % 8 + 1, 0.0f));
+
+		entityManager->addEntity(hawk);
 	}
 	
 
@@ -64,8 +68,8 @@ void AppClass::InitVariables(void)
 
 		Birb* birb = new Birb(sInstance, m_pMeshMngr);
 
-		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 8, 0.0f, 0.0f));
-		else birb->setPosition(vector3(rand() % 10 * -1, 0.0f, 0.0f));
+		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 5, 0.0f, 0.0f));
+		else birb->setPosition(vector3(rand() % 5 * -1, 0.0f, 0.0f));
 		
 		entityManager->addEntity(birb);
 	}
@@ -86,6 +90,12 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 	
+	for (int i = 0; i <= hawkNum; i++) {
+		float hawkspeed = hawk->getSpeed();
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(hawk->getPosition().x + hawkspeed, hawk->getPosition().y, hawk->getPosition().z)), "Hawk_"+i);
+		hawk->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Hawk_"+i));
+		hawk->getBO()->drawBO(m_pMeshMngr);
+	}
 
 	//m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
 	//m_m4FalconLeg *= glm::translate(falconMove);
@@ -104,6 +114,7 @@ void AppClass::Update(void)
 	entityManager->setModelMatricies();
 	entityManager->updateEntities();
 	entityManager->checkCollisions();
+
 	
 	player->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Falcon"));
 	//entityManager->renderAllBO();
