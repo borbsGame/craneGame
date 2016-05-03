@@ -45,8 +45,6 @@ void AppClass::InitVariables(void)
 	//Load models onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
 	
-
-<<<<<<< HEAD
 	//Initialize Hawks
 	for (int i = 0; i <= hawkNum; i++) {
 		String sInstance = "Hawk_" + std::to_string(i);
@@ -61,8 +59,6 @@ void AppClass::InitVariables(void)
 	}
 	
 
-=======
->>>>>>> 92c4b162ce6fb4308a2e9751da8b2dd7cdf37fcc
 	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
 	for (int i = 0; i < 8; i++) {
