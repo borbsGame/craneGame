@@ -12,7 +12,7 @@ Hawk::~Hawk()
 {
 }
 
-void Hawk::update() {
+void Hawk::update(float a_fDeltaTime) {
 	//Move from side to side
 	if (position.x > 450)
 	{
@@ -22,6 +22,8 @@ void Hawk::update() {
 	{
 		SetVelocity(vector3(-1.0f, 0.0f, 0.0f));
 	}
+
+	Entity::update(a_fDeltaTime);
 }
 
 float Hawk::getSpeed() {

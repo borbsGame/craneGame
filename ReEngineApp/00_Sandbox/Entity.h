@@ -31,7 +31,7 @@ public:
 	Entity(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Entity();
 
-	virtual void update() = 0;
+	virtual void update(float a_fDeltaTime);
 
 	std::string getRenderID();
 	std::string getType();
@@ -48,8 +48,6 @@ public:
 	void setRotation(glm::quat rotation);
 
 	int test = 0;
-
-	void update(float a_fDeltaTime);
 
 	//Alberto's
 	void SetMaxVelocity(float a_fMaxVelocity);

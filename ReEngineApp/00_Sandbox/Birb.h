@@ -13,7 +13,7 @@ public:
 	Birb(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Birb();
 
-	void update();
+	void update(float a_fDeltaTime);
 
 	bool getIsHeld();
 	bool getIsFalling();

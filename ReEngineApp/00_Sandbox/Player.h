@@ -16,7 +16,7 @@ public:
 	Player(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Player();
 
-	void update();
+	void update(float a_fDeltaTime);
 
 
 };

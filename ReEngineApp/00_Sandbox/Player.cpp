@@ -13,6 +13,6 @@ Player::~Player()
 {
 }
 
-void Player::update() {
+void Player::update(float a_fDeltaTime) {
 
 }

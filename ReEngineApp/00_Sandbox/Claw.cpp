@@ -7,7 +7,7 @@ Claw::Claw(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(render
 	this->type = "Claw";
 }
 
-void Claw::update()
+void Claw::update(float a_fDeltaTime)
 {
 	if (isHolding) {
 		heldBirb->setPosition(this->getPosition());

@@ -11,7 +11,7 @@ public:
 	Hawk(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Hawk();
 
-	void update();
+	void update(float a_fDeltaTime);
 
 	float getSpeed();
 

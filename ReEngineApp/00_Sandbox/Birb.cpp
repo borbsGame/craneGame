@@ -11,7 +11,7 @@ Birb::~Birb()
 {
 }
 
-void Birb::update() {
+void Birb::update(float a_fDeltaTime) {
 	/*Karen's Notes
 		Get the number of entries in EntityManager CHECK
 		Go through the list and check if it's a Birb 
@@ -25,8 +25,10 @@ void Birb::update() {
 			Reference https://www.physicsforums.com/threads/bouncing-ball-equation.403229/
 	*/
 	if (isFalling) {
-		position.y -= .05f;
+		//position.y -= .05f;
 	}
+	
+	Entity::update(a_fDeltaTime);
 }
 
 bool Birb::getIsHeld() {

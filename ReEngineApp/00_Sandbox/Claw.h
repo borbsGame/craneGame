@@ -15,7 +15,7 @@ public:
 	Claw(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Claw();
 
-	void update();
+	void update(float a_fDeltaTime);
 
 	Birb* getHeldBirb();
 	bool getIsHolding();

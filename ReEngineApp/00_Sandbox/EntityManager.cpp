@@ -255,8 +255,12 @@ void EntityManager::ApplyForce(vector3 a_v3Force, String a_sEntity)
 }
 
 void EntityManager::updateEntities() {
+	SystemSingleton* m_pSystem = SystemSingleton::GetInstance();
+	static int nClock = m_pSystem->AddClock();
+	float fDeltaTime = static_cast<float>(m_pSystem->LapClock(nClock));
+
 	for each(Entity* entity in entitiesList) {
-		entity->update();
+		entity->update(fDeltaTime);
 	}
 }
 
