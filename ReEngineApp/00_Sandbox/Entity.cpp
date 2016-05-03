@@ -30,7 +30,7 @@ void Entity::update(float a_fDeltaTime)
 	//Increase the velocity based on the acceleration
 	m_v3Velocity = glm::clamp(v3Velocity, -m_fMaxVelocity, m_fMaxVelocity);
 	//Set the position based on the position of this object and the acceleration
-	m_v3Position += m_v3Velocity;
+	position += m_v3Velocity;
 
 	//Transform to the position
 	matrix4 m4ToWorld = glm::translate(m_v3Position);

@@ -5,7 +5,8 @@
 Hawk::Hawk(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(renderID, meshMngr)
 {
 	this->type = "Hawk";
-	SetVelocity(vector3(1.0f, 0.0f, 0.0f));
+	SetForce(vector3(2.0f, 0.0f, 0.0f));
+	SetGravityAffected(false);
 }
 
 
@@ -15,13 +16,13 @@ Hawk::~Hawk()
 
 void Hawk::update(float a_fDeltaTime) {
 	//Move from side to side
-	if (position.x > 450)
+	if (position.x > 6)
 	{
-		SetVelocity(vector3(-1.0f, 0.0f, 0.0f));
+		SetForce(vector3(-2.0f, 0.0f, 0.0f));
 	}
-	else if (position.x < -450)
+	else if (position.x < -6)
 	{
-		SetVelocity(vector3(1.0f, 0.0f, 0.0f));
+		SetForce(vector3(2.0f, 0.0f, 0.0f));
 	}
 
 	Entity::update(a_fDeltaTime);

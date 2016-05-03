@@ -119,7 +119,7 @@ void AppClass::Update(void)
 	entityManager->updateEntities();
 	entityManager->checkCollisions();
 
-	hawk->update();
+	//hawk->update();
 	hawk->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Hawk"));
 	hawk->getBO()->drawBO(m_pMeshMngr);
 	
