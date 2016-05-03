@@ -16,6 +16,6 @@ void Hawk::update() {
 	//Move from side to side
 }
 
-int Hawk::getSpeed() {
+float Hawk::getSpeed() {
 	return hawkspeed;
 }

@@ -13,9 +13,9 @@ public:
 
 	void update();
 
-	int getSpeed();
+	float getSpeed();
 
 private:
-	int hawkspeed = .5;
+	float hawkspeed = .5;
 };
 #endif //__HAWK_H_

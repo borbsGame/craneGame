@@ -31,6 +31,7 @@ public:
 	Hawk* hawk;
 	int hawkNum = 5;
 	std::vector<Hawk*> hawks;
+	int hawkspeed = .5;
 	
 	//std::vector<vector3> preyList;
 	//int numPrey = 8;

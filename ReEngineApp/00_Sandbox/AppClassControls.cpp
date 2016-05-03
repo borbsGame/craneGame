@@ -47,10 +47,10 @@ void AppClass::ProcessKeyboard(void)
 	if (bModifier)
 		fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		player->setPosition(vector3(player->getPosition().x - 0.5f, player->getPosition().y, player->getPosition().z));
+		player->setPosition(vector3(player->getPosition().x - 0.1f, player->getPosition().y, player->getPosition().z));
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		player->setPosition(vector3(player->getPosition().x + 0.5f, player->getPosition().y, player->getPosition().z));
+		player->setPosition(vector3(player->getPosition().x + 0.1f, player->getPosition().y, player->getPosition().z));
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		if (legMove <= 40) {
