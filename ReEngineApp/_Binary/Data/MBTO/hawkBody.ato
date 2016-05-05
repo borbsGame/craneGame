@@ -1,12 +1,12 @@
-# ASCII Text Object file created from the model falconBody.fbx
-# 2016-5-5 | 14:35:22
+# ASCII Text Object file created from the model hawkBody.fbx
+# 2016-5-5 | 14:35:23
 # Made by Alberto Bobadilla (labigm@rit.edu)
 Version: 1.0
 
 Materials: 1
 	lambert1
 		Diffuse: 1 1 1
-		DiffuseMap: falconDiffuse.png
+		DiffuseMap: hawkDiffuse.png
 		NormalMap: NULL
 		SpecularMap: NULL
 

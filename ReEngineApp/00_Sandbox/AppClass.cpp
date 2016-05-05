@@ -52,7 +52,7 @@ void AppClass::InitVariables(void)
 	//Initialize Hawks
 	for (int i = 0; i <= hawkNum; i++) {
 		String sInstance = "Hawk_" + std::to_string(i);
-		m_pMeshMngr->LoadModel("Birbs\\falconBody.fbx", sInstance);
+		m_pMeshMngr->LoadModel("Birbs\\hawkBody.fbx", sInstance);
 		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
 		//hawk = new Hawk(sInstance, m_pMeshMngr);
 
