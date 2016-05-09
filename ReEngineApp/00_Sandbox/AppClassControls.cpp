@@ -3,7 +3,7 @@ void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
 	float fSpeed = 0.01f;
-
+	
 #pragma region ON_KEY_PRESS_RELEASE
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 		bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
@@ -65,6 +65,10 @@ void AppClass::ProcessKeyboard(void)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		claw->dropBirb();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
+		if (debugMode == false) { debugMode = true; }
+		else debugMode = false;
 	}
 #pragma endregion
 

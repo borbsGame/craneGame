@@ -11,7 +11,7 @@ void AppClass::InitWindow(String a_sWindowName)
 	m_pSystem->SetWindowHeight(1000);
 	m_pSystem->SetWindowWidth(800);
 
-	//Color is set to CREAM 
+	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
 	//is on the InitVariables it will always force it regardless of the .cfg
 	m_v4ClearColor = vector4(1.0f, 0.92f, 0.81f, 0.0f);
@@ -26,9 +26,6 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 2.5f, 15.0f),//Camera position
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
-
-	//Debug mode is off
-	debugMode = false;
 
 	//Updates the Physics for each Entity or object that needs it in the window
 	entityManager = EntityManager::GetInstance();
@@ -48,30 +45,37 @@ void AppClass::InitVariables(void)
 	//Load models onto the Mesh manager
 	m_pMeshMngr->LoadModel("Birbs\\falconLeg.fbx", "FalconLeg");
 	
+	/*m_pMeshMngr->LoadModel("Birbs\\falconBody.fbx", "Hawk");
+	hawk = new Hawk("Hawk", m_pMeshMngr);
+	hawk->setPosition(vector3(0.0f, 5.0f, 0.0f));
+	entityManager->addEntity(hawk);*/
 	//Initialize Hawks
 	for (int i = 0; i <= hawkNum; i++) {
 		String sInstance = "Hawk_" + std::to_string(i);
 		m_pMeshMngr->LoadModel("Birbs\\hawkBody.fbx", sInstance);
 		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
-		//for hawk positions
+		//hawk = new Hawk(sInstance, m_pMeshMngr);
+
 		if (rand() % 2 == 0) hawks.at(i)->setPosition(vector3(rand() % 5, 5.0 - i, 0.0f));
 		else hawks.at(i)->setPosition(vector3(rand() % 5 * -1, 5.0 + i, 0.0f));
 
 		entityManager->addEntity(hawks.at(i));
 	}
+	
+
+	srand(time(NULL));
 	//Iterate through prey list, load models and create positions
 	for (int i = 0; i < 8; i++) {
 		String sInstance = "Birb_" + std::to_string(i);
 		m_pMeshMngr->LoadModel("Birbs\\birbBody.fbx", sInstance);
+
 		Birb* birb = new Birb(sInstance, m_pMeshMngr);
-		//for birb positions
+
 		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 5, 0.0f, 0.0f));
 		else birb->setPosition(vector3(rand() % 5 * -1, 0.0f, 0.0f));
 		
 		entityManager->addEntity(birb);
 	}
-
-	srand(time(NULL));
 }
 
 void AppClass::Update(void)
@@ -89,42 +93,42 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 	
-	//Update each Hawk and set their model matrix to draw it
 	for (int i = 0; i <= hawkNum; i++) {
+		//float hawkspeed = hawks.at(i)->getSpeed();
 		String hawkModel = "Hawk_" + std::to_string(i);
 		hawks.at(i)->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix(hawkModel));
 		hawks.at(i)->getBO()->drawBO(m_pMeshMngr);
 	}
 
-	//to set the leg at the position of the player
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, 
-														player->getPosition().y, 
-														player->getPosition().z))* glm::translate(vector3(0.0f, -legMove * 0.1, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)),
-														"FalconLeg");
-	
-	//to set the position of the claw in relation to the player's leg (see above)
+	//m_m4FalconLeg = glm::scale(vector3(.1, 50, .1));
+	//m_m4FalconLeg *= glm::translate(falconMove);
+
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z))* glm::translate(vector3(0.0f, -legMove * 0.1, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)), "FalconLeg");
+	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(player->getPosition().x, 1.0f, 1.0f)) * glm::translate(vector3(player->getPosition().x, 3.2 -legMove, .1)) * ToMatrix4(m_qArcBall), "FalconLeg");
+	//m_pMeshMngr->SetModelMatrix(glm::scale(vector3(.1, .3, .1)) * glm::translate(falconMove) * glm::translate(0.0f,-.1f,0.0f)  * ToMatrix4(m_qArcBall), "FalconLeg");
+
+	//m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z)) * glm::translate(vector3(0.0f, -legMove * .2, 0.0f)), "FalconClaw");
 	vector3 temp;
-	temp = vector3(player->getPosition().x, 
-						player->getPosition().y, 
-						player->getPosition().z);
+	temp = vector3(player->getPosition().x, player->getPosition().y, player->getPosition().z);
 	temp += vector3(0.0f, -legMove *.2, 0.0f);
 	claw->setPosition(temp);
 
-	//update every thing on screen that is moveable 
+	
 	entityManager->setModelMatricies();
 	entityManager->updateEntities();
 	entityManager->checkCollisions();
 
-	//set the player matrix and draw it
+	//hawk->update();
+	/*hawk->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Hawk"));
+	hawk->getBO()->drawBO(m_pMeshMngr);*/
+	
 	player->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Falcon"));
+	//entityManager->renderAllBO();
 	player->getBO()->drawBO(m_pMeshMngr);
 	
-	//set the player's claw matrix and draw it
 	claw->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("FalconClaw"));
-	claw->getBO()->drawBO(m_pMeshMngr);
-
-	//Render and draw all the objects on to the screen
 	entityManager->renderAllBO();
+	claw->getBO()->drawBO(m_pMeshMngr);
 
 	//to get the time for the equation 
 	//get time between calls
@@ -134,22 +138,42 @@ void AppClass::Update(void)
 	fRunTime += fCallTime;
 	static double bounce = fRunTime;
 
+	//To update Birbs
+	/*int numOfEntities= entityManager->getNumEntities();
+	for (int i = 0; i < numOfEntities; i++)
+	{
+		Entity* currentEnt = entityManager->getEntity(i);
+		if (currentEnt->getType() == "Birb")
+		{
+			Birb* currentBirb = ((Birb*)currentEnt);
+			if (currentBirb->getIsFalling())
+			{
+				//distance/y pos = (ut) initial speed * time This is always 0 + acceleration*timeSQUARED/2
+				currentBirb->ApplyForce(vector3(0.0f, -9.81f, 0.0f) * (static_cast<float>(pow(fRunTime,2.0))/2.0f));
+			}
+			else
+			{
+				float y = -.03f * pow(bounce, 2.0) + 2.0 * bounce;
+				if (y < 0) {
+					bounce = 0;
+				}
+				currentBirb->ApplyForce(vector3(0.0f, y, 0.0f));
+			}
+		}
+	}*/
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
-	//if Debug mode is on, show FPS and Name
-	 if (debugMode){
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
 	//print info into the console
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
-	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), RERED);
+	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 	
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
-	 }
 }
 
 void AppClass::Display(void)
@@ -157,8 +181,7 @@ void AppClass::Display(void)
 	//clear the screen
 	ClearScreen();
 
-	//Render the grid based on the camera's mode (if debugMode is on):
-	if (debugMode){
+	//Render the grid based on the camera's mode:
 	switch (m_pCameraMngr->GetCameraMode())
 	{
 	default: //Perspective
@@ -173,7 +196,6 @@ void AppClass::Display(void)
 	case CAMERAMODE::CAMROTHOZ:
 		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY, REBLUE * 0.75f); //renders the XY grid with a 100% scale
 		break;
-	}
 	}
 	
 	m_pMeshMngr->Render(); //renders the render list
