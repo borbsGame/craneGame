@@ -71,6 +71,9 @@ void AppClass::InitVariables(void)
 		entityManager->addEntity(birb);
 	}
 
+	//Add in the background
+	m_pMeshMngr->LoadModel("Birbs\\backG.fbx", "Background");
+
 	srand(time(NULL));
 }
 
