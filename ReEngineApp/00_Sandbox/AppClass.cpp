@@ -77,6 +77,13 @@ void AppClass::InitVariables(void)
 	srand(time(NULL));
 }
 
+void AppClass::restart(void)
+{
+	player->score = 0;
+	player->loss = 0;
+	player->gameOver = false;
+}
+
 void AppClass::Update(void)
 {
 	//Update the system's time

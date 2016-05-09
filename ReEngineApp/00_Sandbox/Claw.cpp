@@ -33,7 +33,10 @@ void Claw::setIsHolding(bool isHolding) {
 }
 
 void Claw::dropBirb() {
-	isHolding = false;
-	heldBirb->setIsFalling(true);
-	heldBirb->setIsHeld(false);
+	if (heldBirb != nullptr)
+	{
+		isHolding = false;
+		heldBirb->setIsFalling(true);
+		heldBirb->setIsHeld(false);
+	}
 }

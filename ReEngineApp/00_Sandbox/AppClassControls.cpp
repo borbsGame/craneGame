@@ -88,7 +88,7 @@ void AppClass::ProcessKeyboard(void)
 	else
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			//restart
+			this->restart();
 		}
 	}
 #pragma endregion
