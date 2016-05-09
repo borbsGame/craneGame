@@ -54,8 +54,8 @@ void AppClass::InitVariables(void)
 		m_pMeshMngr->LoadModel("Birbs\\hawkBody.fbx", sInstance);
 		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
 		//for hawk positions
-		if (rand() % 2 == 0) hawks.at(i)->setPosition(vector3(rand() % 5, 5.0 - i, 0.0f));
-		else hawks.at(i)->setPosition(vector3(rand() % 5 * -1, 5.0 + i, 0.0f));
+		if (rand() % 2 == 0) hawks.at(i)->setPosition(vector3(rand() % 5, 4.0 - i, 0.0f));
+		else hawks.at(i)->setPosition(vector3(rand() % 5 * -1, 4.0 + i, 0.0f));
 
 		entityManager->addEntity(hawks.at(i));
 	}
@@ -65,8 +65,8 @@ void AppClass::InitVariables(void)
 		m_pMeshMngr->LoadModel("Birbs\\birbBody.fbx", sInstance);
 		Birb* birb = new Birb(sInstance, m_pMeshMngr);
 		//for birb positions
-		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 5, 0.0f, 0.0f));
-		else birb->setPosition(vector3(rand() % 5 * -1, 0.0f, 0.0f));
+		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 5, -2.0f, 0.0f));
+		else birb->setPosition(vector3(rand() % 5 * -1, -2.0f, 0.0f));
 		
 		entityManager->addEntity(birb);
 	}

@@ -65,7 +65,7 @@ void AppClass::ProcessKeyboard(void)
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (legMove <= 40) {
+		if (legMove <= 50) {
 			legMove += 0.5f;
 		}
 	}

@@ -32,7 +32,7 @@ void Birb::update(float a_fDeltaTime) {
 	*/
 	if (isFalling) {
 		SetGravityAffected(true);
-		if (position.y < -1.0f){
+		if (position.y < -2.0f){
 			if (!hasBounced) {
 				ApplyForce(vector3(0.0f, GetVelocity().y * -150.0f, 0.0f));
 				hasBounced = true;
