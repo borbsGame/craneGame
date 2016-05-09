@@ -4,7 +4,10 @@
 Birb::Birb(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(renderID, meshMngr)
 {
 	this->type = "Birb";
-	SetGravityAffected(false);
+	//SetGravityAffected(false);
+	m_fFriction = 0.02f;
+
+	//ApplyForce(vector3(0.0f, 2.0f, 0.0f));
 }
 
 
@@ -29,6 +32,20 @@ void Birb::update(float a_fDeltaTime) {
 	*/
 	if (isFalling) {
 		SetGravityAffected(true);
+		if (position.y < -1.0f){
+			if (!hasBounced) {
+				ApplyForce(vector3(0.0f, GetVelocity().y * -150.0f, 0.0f));
+				hasBounced = true;
+			}
+			else {
+				SetGravityAffected(false);
+				SetForce(vector3(0.0f));
+				SetVelocity(vector3(0.0f));
+				isFalling = false;
+				hasBounced = false;
+			}
+		}
+		
 	}
 	else {
 		SetGravityAffected(false);

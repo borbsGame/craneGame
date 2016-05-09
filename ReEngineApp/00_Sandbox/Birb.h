@@ -20,5 +20,7 @@ public:
 
 	void setIsHeld(bool isHeld);
 	void setIsFalling(bool isFalling);
+
+	bool hasBounced = false;
 };
 #endif //__BIRB_H_

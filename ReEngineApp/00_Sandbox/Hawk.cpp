@@ -19,10 +19,12 @@ void Hawk::update(float a_fDeltaTime) {
 	if (position.x > 6.5)
 	{
 		SetForce(vector3(-2.0f, 0.0f, 0.0f));
+		facingRight = false;
 	}
 	else if (position.x < -6.5)
 	{
 		SetForce(vector3(2.0f, 0.0f, 0.0f));
+		facingRight = true;
 	}
 
 	Entity::update(a_fDeltaTime);
