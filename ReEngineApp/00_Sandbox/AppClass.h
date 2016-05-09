@@ -113,6 +113,8 @@ public:
 	OUTPUT: ---
 	*/
 	virtual void Release(void) final;
+
+	void restart(void);
 };
 /*
 USAGE:

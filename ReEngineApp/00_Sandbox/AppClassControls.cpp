@@ -46,41 +46,50 @@ void AppClass::ProcessKeyboard(void)
 #pragma region Falcon Control
 	if (bModifier)
 		fSpeed *= 10.0f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		player->setPosition(vector3(player->getPosition().x - 0.1f, player->getPosition().y, player->getPosition().z));
-		player->setFacingRight(false);
 
-		if (claw->getIsHolding()) {
-			claw->getHeldBirb()->setFacingRight(false);
+	if (!player->gameOver) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			player->setPosition(vector3(player->getPosition().x - 0.1f, player->getPosition().y, player->getPosition().z));
+			player->setFacingRight(false);
+
+			if (claw->getIsHolding()) {
+				claw->getHeldBirb()->setFacingRight(false);
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			player->setPosition(vector3(player->getPosition().x + 0.1f, player->getPosition().y, player->getPosition().z));
+			player->setFacingRight(true);
+
+			if (claw->getIsHolding()) {
+				claw->getHeldBirb()->setFacingRight(true);
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+			if (legMove <= 50) {
+				legMove += 0.5f;
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			if (legMove >= 0) {
+				legMove -= 0.5f;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			claw->dropBirb();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
+			if (debugMode == false) { debugMode = true; }
+			else debugMode = false;
 		}
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		player->setPosition(vector3(player->getPosition().x + 0.1f, player->getPosition().y, player->getPosition().z));
-		player->setFacingRight(true);
-
-		if (claw->getIsHolding()) {
-			claw->getHeldBirb()->setFacingRight(true);
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			//restart
 		}
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (legMove <= 50) {
-			legMove += 0.5f;
-		}
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		if (legMove >= 0) {
-			legMove -= 0.5f;
-		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		claw->dropBirb();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-		if (debugMode == false) { debugMode = true; }
-		else debugMode = false;
 	}
 #pragma endregion
 

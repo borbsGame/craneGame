@@ -7,6 +7,10 @@ Player::Player(std::string renderID, MeshManagerSingleton* meshMngr) : Entity(re
 	this->type = "Player";
 	std::cout << boundingObject->GetRadius();
 	SetGravityAffected(false);
+
+	score = 0;
+	loss = 0;
+	gameOver = false;
 }
 
 
