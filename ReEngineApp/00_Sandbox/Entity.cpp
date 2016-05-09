@@ -32,8 +32,15 @@ void Entity::update(float a_fDeltaTime)
 	//Set the position based on the position of this object and the acceleration
 	position += m_v3Velocity;
 
+	if (facingRight) {
+		rotation = glm::angleAxis(0.0f, vector3(0.0f, 1.0f, 0.0f));
+	}
+	else {
+		rotation = glm::angleAxis(180.0f, vector3(0.0f, 1.0f, 0.0f));
+	}
+
 	//Transform to the position
-	matrix4 m4ToWorld = glm::translate(m_v3Position);
+	matrix4 m4ToWorld = glm::scale(scale) * glm::translate(m_v3Position) * glm::mat4_cast(rotation);
 
 
 }
@@ -50,7 +57,7 @@ std::string Entity::getType() {
 	return this->type;
 }
 matrix4 Entity::getModelMatrix() {
-	return glm::scale(scale) * glm::translate(position) * glm::mat4_cast(rotation);
+	return glm::scale(scale)  * glm::translate(position)* glm::mat4_cast(rotation);
 }
 BoundingObject* Entity::getBO() {
 	return this->boundingObject;
@@ -102,4 +109,10 @@ void Entity::ApplyGravity(float a_fDeltaTime)
 {
 	if (m_bGravityAffected)
 		m_v3Force += vector3(0.0f, -9.81f, 0.0f) * a_fDeltaTime;
+}
+bool Entity::getFacingRight() {
+	return this->facingRight;
+}
+void Entity::setFacingRight(bool facingRight) {
+	this->facingRight = facingRight;
 }

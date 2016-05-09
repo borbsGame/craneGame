@@ -46,11 +46,23 @@ void AppClass::ProcessKeyboard(void)
 #pragma region Falcon Control
 	if (bModifier)
 		fSpeed *= 10.0f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		player->setPosition(vector3(player->getPosition().x - 0.1f, player->getPosition().y, player->getPosition().z));
+		player->setFacingRight(false);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if (claw->getIsHolding()) {
+			claw->getHeldBirb()->setFacingRight(false);
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		player->setPosition(vector3(player->getPosition().x + 0.1f, player->getPosition().y, player->getPosition().z));
+		player->setFacingRight(true);
+
+		if (claw->getIsHolding()) {
+			claw->getHeldBirb()->setFacingRight(true);
+		}
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		if (legMove <= 40) {

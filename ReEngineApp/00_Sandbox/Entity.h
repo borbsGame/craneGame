@@ -27,6 +27,8 @@ protected:
 	float m_fMass = 1.0f;	//Mass of the Entity
 	float m_fMaxVelocity = 1.0f; //Limit of the acceleration of the entity
 
+	bool facingRight = true;
+
 public:
 	Entity(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Entity();
@@ -140,10 +142,8 @@ public:
 	OUTPUT: ---
 	*/
 	void ApplyGravity(float a_fDeltaTime);
-	/*
-	USAGE: Accessor of name
-	ARGUMENTS: ---
-	OUTPUT: String -> name of entity
-	*/
+	
+	bool getFacingRight();
+	void setFacingRight(bool facingRight);
 };
 #endif //__ENTITY_H_
