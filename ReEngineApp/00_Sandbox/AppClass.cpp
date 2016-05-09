@@ -56,8 +56,8 @@ void AppClass::InitVariables(void)
 		hawks.push_back(new Hawk(sInstance, m_pMeshMngr));
 		//hawk = new Hawk(sInstance, m_pMeshMngr);
 
-		if (rand() % 2 == 0) hawks.at(i)->setPosition(vector3(rand() % 5, 5.0 - i, 0.0f));
-		else hawks.at(i)->setPosition(vector3(rand() % 5 * -1, 5.0 + i, 0.0f));
+		if (rand() % 2 == 0) hawks.at(i)->setPosition(vector3(rand() % 5, 4.0 - i, 0.0f));
+		else hawks.at(i)->setPosition(vector3(rand() % 5 * -1, 4.0 + i, 0.0f));
 
 		entityManager->addEntity(hawks.at(i));
 	}
@@ -71,8 +71,8 @@ void AppClass::InitVariables(void)
 
 		Birb* birb = new Birb(sInstance, m_pMeshMngr);
 
-		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 5, 0.0f, 0.0f));
-		else birb->setPosition(vector3(rand() % 5 * -1, 0.0f, 0.0f));
+		if(rand() % 2 == 0) birb->setPosition(vector3(rand() % 5, -2.0f, 0.0f));
+		else birb->setPosition(vector3(rand() % 5 * -1, -2.0f, 0.0f));
 		
 		entityManager->addEntity(birb);
 	}
