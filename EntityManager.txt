@@ -39,10 +39,59 @@ void EntityManager::createBoundingObject(std::vector<vector3> vertices)
 
 void EntityManager::checkCollisions()
 {
+	/*int index = 0;
+	MyBoundingObjectClass temp1 = boundObj.at(index);
+
+	int count = 1;
+	bool notDone = true;
+
+	while (index < getNumBoundObjects())
+	{
+	MyBoundingObjectClass* temp2 = &getBoundObject(count);
+
+	if (temp1.IsColliding(temp2))
+	{
+	collide(temp1, getBoundObject(count));
+	}
+	else
+	{
+	setColor(temp1, REGREEN);
+	if (count == getNumBoundObjects()) { count = 0; index++; }
+	else { count++; }
+
+	}
+
+	}*/
 	int count = 1;
 	int numofBO = getNumEntities();
 	static int index = 0;
 
+	/*for (int i = 1; i < numofBO; i++)
+	{
+		Entity* temp1 = entitiesList.at(index);
+		Entity* temp2 = getEntity(i);
+
+		std::cout << "Temp1 Type: " << temp1->getType() << "Temp2 Type: " << temp2->getType() << std::endl;
+
+		if (temp1->getBO()->IsColliding(temp2->getBO()))
+		{
+			collide(temp1, temp2);
+		}
+		else if (count == 0)
+		{
+			index++;
+		}
+		else
+		{
+			count++;
+			count %= numofBO;
+		}
+	}
+
+	if (index == numofBO)
+	{
+		index = 0;
+	}*/
 	for (int i = 0; i < getNumEntities(); i++) {
 		for(int j = 0; j < getNumEntities(); j++) {
 			if (i != j) {
@@ -62,7 +111,7 @@ void EntityManager::checkCollisions()
 
 void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 {
-	//If checking the collsion of Player and Claw and if it Claw is holding, 
+	
 	if (entityOne->getType() == "Player") {
 		if (entityTwo->getType() == "Claw") {
 			Claw* tempClaw = ((Claw*)entityTwo);

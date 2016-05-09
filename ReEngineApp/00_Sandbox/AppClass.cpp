@@ -14,7 +14,7 @@ void AppClass::InitWindow(String a_sWindowName)
 	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
 	//is on the InitVariables it will always force it regardless of the .cfg
-	m_v4ClearColor = vector4(0.4f, 0.6f, 0.9f, 0.0f);
+	m_v4ClearColor = vector4(1.0f, 0.92f, 0.81f, 0.0f);
 }
 
 void AppClass::InitVariables(void)
