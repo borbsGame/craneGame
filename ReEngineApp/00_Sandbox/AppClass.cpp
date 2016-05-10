@@ -32,6 +32,7 @@ void AppClass::InitVariables(void)
 
 	//Updates the Physics for each Entity or object that needs it in the window
 	entityManager = EntityManager::GetInstance();
+	entityManager->loss = 3;
 	entityManager->setMeshManager(m_pMeshMngr);
 
 	//Initialize Player and the falcon claw
@@ -79,8 +80,12 @@ void AppClass::InitVariables(void)
 
 void AppClass::restart(void)
 {
+	claw->dropBirb();
+
+
+
 	entityManager->score = 0;
-	entityManager->loss = 0;
+	entityManager->loss = 3;
 	entityManager->gameOver = false;
 }
 
@@ -99,6 +104,10 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 	
+	if (entityManager->loss <= 0)
+		entityManager->gameOver = true;
+
+
 	//Update each Hawk and set their model matrix to draw it
 	for (int i = 0; i <= hawkNum; i++) {
 		String hawkModel = "Hawk_" + std::to_string(i);
@@ -107,28 +116,31 @@ void AppClass::Update(void)
 	}
 
 	//to set the leg at the position of the player
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x, 
-														player->getPosition().y, 
-														player->getPosition().z))* glm::translate(vector3(0.0f, -legMove * 0.1, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)),
-														"FalconLeg");
-	
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(player->getPosition().x,
+		player->getPosition().y,
+		player->getPosition().z))* glm::translate(vector3(0.0f, -legMove * 0.1, 0.0f)) * glm::scale(vector3(1.0f, legMove, 1.0f)),
+		"FalconLeg");
+
 	//to set the position of the claw in relation to the player's leg (see above)
 	vector3 temp;
-	temp = vector3(player->getPosition().x, 
-						player->getPosition().y, 
-						player->getPosition().z);
+	temp = vector3(player->getPosition().x,
+		player->getPosition().y,
+		player->getPosition().z);
 	temp += vector3(0.0f, -legMove *.2, 0.0f);
 	claw->setPosition(temp);
 
-	//update every thing on screen that is moveable 
-	entityManager->setModelMatricies();
-	entityManager->updateEntities();
-	entityManager->checkCollisions();
+	if (!entityManager->gameOver)
+	{
+		//update every thing on screen that is moveable 
+		entityManager->setModelMatricies();
+		entityManager->updateEntities();
+		entityManager->checkCollisions();
+	}
 
 	//set the player matrix and draw it
 	player->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Falcon"));
 	player->getBO()->drawBO(m_pMeshMngr);
-	
+
 	//set the player's claw matrix and draw it
 	claw->getBO()->SetModelMatrix(m_pMeshMngr->GetModelMatrix("FalconClaw"));
 	claw->getBO()->drawBO(m_pMeshMngr);
@@ -148,11 +160,21 @@ void AppClass::Update(void)
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
-	m_pMeshMngr->Print("Score:");
-	m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+	if (!entityManager->gameOver)
+	{
+		m_pMeshMngr->Print("Score:");
+		m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
 
-	m_pMeshMngr->Print("Lives:");
-	m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
+		m_pMeshMngr->Print("Tries:");
+		m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
+	}
+	else
+	{
+		m_pMeshMngr->Print("GAME OVER", RERED);
+
+		m_pMeshMngr->Print("Final Score:");
+		m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+	}
 
 	//if Debug mode is on, show FPS and Name
 	 if (debugMode){
@@ -165,12 +187,6 @@ void AppClass::Update(void)
 	
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
-
-	m_pMeshMngr->Print("Score:");
-	m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
-
-	m_pMeshMngr->Print("Loss:");
-	m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
 	 }
 }
 
