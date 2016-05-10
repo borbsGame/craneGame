@@ -82,7 +82,14 @@ void AppClass::restart(void)
 {
 	claw->dropBirb();
 
-
+	for (int i = 0; i < (int) entityManager->entitiesList.size(); i++)
+	{
+		if (entityManager->entitiesList.at(i)->getType() == "Birb")
+		{
+			if (rand() % 2 == 0) entityManager->entitiesList.at(i)->setPosition(vector3(rand() % 5, -2.0f, 0.0f));
+			else entityManager->entitiesList.at(i)->setPosition(vector3(rand() % 5 * -1, -2.0f, 0.0f));
+		}
+	}
 
 	entityManager->score = 0;
 	entityManager->loss = 3;
