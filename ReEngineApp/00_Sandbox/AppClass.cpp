@@ -164,16 +164,20 @@ void AppClass::Update(void)
 	{
 		m_pMeshMngr->Print("Score:");
 		m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+		m_pMeshMngr->Print("\n");
 
 		m_pMeshMngr->Print("Tries:");
 		m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
+		m_pMeshMngr->Print("\n");
 	}
 	else
 	{
 		m_pMeshMngr->Print("GAME OVER", RERED);
+		m_pMeshMngr->Print("\n");
 
 		m_pMeshMngr->Print("Final Score:");
 		m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+		m_pMeshMngr->Print("\n");
 	}
 
 	//if Debug mode is on, show FPS and Name
@@ -184,9 +188,11 @@ void AppClass::Update(void)
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), RERED);
+	m_pMeshMngr->Print("\n");
 	
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+	m_pMeshMngr->Print("\n");
 	 }
 }
 
