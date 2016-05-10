@@ -13,10 +13,6 @@ public:
 	vector3 bodyPosition;
 	vector3 legPosition;
 
-	int score;
-	int loss;
-	bool gameOver;
-
 	Player(std::string renderID, MeshManagerSingleton* meshMngr);
 	~Player();
 

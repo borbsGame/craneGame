@@ -79,9 +79,9 @@ void AppClass::InitVariables(void)
 
 void AppClass::restart(void)
 {
-	player->score = 0;
-	player->loss = 0;
-	player->gameOver = false;
+	entityManager->score = 0;
+	entityManager->loss = 0;
+	entityManager->gameOver = false;
 }
 
 void AppClass::Update(void)
@@ -148,6 +148,12 @@ void AppClass::Update(void)
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
+	m_pMeshMngr->Print("Score:");
+	m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+
+	m_pMeshMngr->Print("Lives:");
+	m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
+
 	//if Debug mode is on, show FPS and Name
 	 if (debugMode){
 	//Indicate the FPS
@@ -159,6 +165,12 @@ void AppClass::Update(void)
 	
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+
+	m_pMeshMngr->Print("Score:");
+	m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+
+	m_pMeshMngr->Print("Loss:");
+	m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
 	 }
 }
 

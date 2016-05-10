@@ -22,6 +22,9 @@ void EntityManager::ReleaseInstance()
 void EntityManager::Init(void)
 {
 	m_nEntityCount = 0;
+	score = 0;
+	loss = 3;
+	gameOver = false;
 }
 
 void EntityManager::addEntity(Entity* entity)
@@ -62,12 +65,16 @@ void EntityManager::checkCollisions()
 
 void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 {
+	
+
 	//If checking the collsion of Player and Claw and if it Claw is holding, 
 	if (entityOne->getType() == "Player") {
 		if (entityTwo->getType() == "Claw") {
+			Player* tempPlayer = ((Player*)entityOne);
 			Claw* tempClaw = ((Claw*)entityTwo);
 			if (tempClaw->getIsHolding()) {
 				tempClaw->dropBirb();
+				score++;
 				tempClaw->getHeldBirb()->setPosition(vector3(1000, 1000, 0));
 			}
 		}
@@ -79,7 +86,6 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 			if (!tempClaw->getIsHolding() && !tempBirb->getIsFalling()) {
 				tempClaw->setIsHolding(true);
 				tempClaw->setHeldBirb(tempBirb);
-
 				tempBirb->setIsHeld(true);
 			}
 		}
@@ -87,12 +93,14 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 			Claw* tempClaw = ((Claw*)entityOne);
 			if (tempClaw->getIsHolding()) {
 				tempClaw->dropBirb();
+				loss--;
 			}
 		}
 		else if (entityTwo->getType() == "Player") {
 			Claw* tempClaw = ((Claw*)entityOne);
 			if (tempClaw->getIsHolding()) {
 				tempClaw->dropBirb();
+				score++;
 				tempClaw->getHeldBirb()->setPosition(vector3(1000, 1000, 0));
 			}
 		}
@@ -120,6 +128,7 @@ void EntityManager::collide(Entity* entityOne, Entity* entityTwo)
 			Claw* tempClaw = ((Claw*)entityTwo);
 			if (tempClaw->getIsHolding()) {
 				tempClaw->dropBirb();
+				loss--;
 			}
 		}
 	}

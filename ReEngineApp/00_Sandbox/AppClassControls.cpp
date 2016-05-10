@@ -47,22 +47,29 @@ void AppClass::ProcessKeyboard(void)
 	if (bModifier)
 		fSpeed *= 10.0f;
 
-	if (!player->gameOver) {
+	if (!entityManager->gameOver) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			player->setPosition(vector3(player->getPosition().x - 0.1f, player->getPosition().y, player->getPosition().z));
-			player->setFacingRight(false);
+			if (player->getPosition().x >= -4.0f)
+			{
+				player->setPosition(vector3(player->getPosition().x - 0.1f, player->getPosition().y, player->getPosition().z));
+				player->setFacingRight(false);
 
-			if (claw->getIsHolding()) {
-				claw->getHeldBirb()->setFacingRight(false);
+
+				if (claw->getIsHolding()) {
+					claw->getHeldBirb()->setFacingRight(false);
+				}
 			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			player->setPosition(vector3(player->getPosition().x + 0.1f, player->getPosition().y, player->getPosition().z));
-			player->setFacingRight(true);
+			if (player->getPosition().x <= 4.0f)
+			{
+				player->setPosition(vector3(player->getPosition().x + 0.1f, player->getPosition().y, player->getPosition().z));
+				player->setFacingRight(true);
 
-			if (claw->getIsHolding()) {
-				claw->getHeldBirb()->setFacingRight(true);
+				if (claw->getIsHolding()) {
+					claw->getHeldBirb()->setFacingRight(true);
+				}
 			}
 		}
 

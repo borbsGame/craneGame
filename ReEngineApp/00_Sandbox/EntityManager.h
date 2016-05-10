@@ -20,6 +20,10 @@ class EntityManager
 public:
 	std::vector<Entity*> entitiesList;
 
+	int score;
+	int loss;
+	bool gameOver;
+
 	void Init();
 
 	static EntityManager* GetInstance();
