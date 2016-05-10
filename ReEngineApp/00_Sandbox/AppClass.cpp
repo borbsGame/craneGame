@@ -148,10 +148,11 @@ void AppClass::Update(void)
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
-	m_pMeshMngr->Print("Score:");
+	m_pMeshMngr->Print("Score: ");
 	m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+	m_pMeshMngr->Print("\n");
 
-	m_pMeshMngr->Print("Lives:");
+	m_pMeshMngr->Print("Lives: ");
 	m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
 
 	//if Debug mode is on, show FPS and Name
@@ -161,13 +162,16 @@ void AppClass::Update(void)
 	//print info into the console
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
+	m_pMeshMngr->Print("\n");
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), RERED);
 	
-	m_pMeshMngr->Print("FPS:");
+	m_pMeshMngr->Print("FPS: ");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+	m_pMeshMngr->Print("\n");
 
 	m_pMeshMngr->Print("Score:");
 	m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+	m_pMeshMngr->Print("\n");
 
 	m_pMeshMngr->Print("Loss:");
 	m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
