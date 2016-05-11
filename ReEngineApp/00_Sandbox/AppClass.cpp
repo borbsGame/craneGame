@@ -86,6 +86,11 @@ void AppClass::restart(void)
 	{
 		if (entityManager->entitiesList.at(i)->getType() == "Birb")
 		{
+			entityManager->entitiesList.at(i)->SetGravityAffected(false);
+			entityManager->entitiesList.at(i)->SetForce(vector3(0.0f));
+			entityManager->entitiesList.at(i)->SetVelocity(vector3(0.0f));
+			((Birb*)entityManager->entitiesList.at(i))->setIsFalling(false);
+
 			if (rand() % 2 == 0) entityManager->entitiesList.at(i)->setPosition(vector3(rand() % 5, -2.0f, 0.0f));
 			else entityManager->entitiesList.at(i)->setPosition(vector3(rand() % 5 * -1, -2.0f, 0.0f));
 		}
@@ -111,7 +116,7 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 	
-	if (entityManager->loss <= 0)
+	if (entityManager->loss <= 0 || entityManager->score>=8)
 		entityManager->gameOver = true;
 
 
@@ -175,16 +180,29 @@ void AppClass::Update(void)
 
 		m_pMeshMngr->Print("Tries:");
 		m_pMeshMngr->Print(std::to_string(entityManager->loss), RERED);
-		m_pMeshMngr->Print("\n");
+		m_pMeshMngr->Print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		m_pMeshMngr->Print("Arrows: move falcon left/right and claw up/down   Space: drop held birb", REBLACK);
 	}
 	else
 	{
-		m_pMeshMngr->Print("GAME OVER", RERED);
-		m_pMeshMngr->Print("\n");
+		if (entityManager->score >= 8) {
+			m_pMeshMngr->Print("GAME FINISHED", REBLUE);
+			m_pMeshMngr->Print("\n");
 
-		m_pMeshMngr->Print("Final Score:");
-		m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
-		m_pMeshMngr->Print("\n");
+			m_pMeshMngr->Print("Final Score:");
+			m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+			m_pMeshMngr->Print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+			m_pMeshMngr->Print("You Won! Press Space to Restart!", REBLUE);
+		}
+		else {
+			m_pMeshMngr->Print("GAME OVER", RERED);
+			m_pMeshMngr->Print("\n");
+
+			m_pMeshMngr->Print("Final Score:");
+			m_pMeshMngr->Print(std::to_string(entityManager->score), RERED);
+			m_pMeshMngr->Print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+			m_pMeshMngr->Print("You lost! Press Space to Restart!", RERED);
+		}
 	}
 
 	//if Debug mode is on, show FPS and Name
