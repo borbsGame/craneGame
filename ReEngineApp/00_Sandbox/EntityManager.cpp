@@ -256,3 +256,19 @@ void EntityManager::Release()
 	}
 	entitiesList.clear();
 }
+
+uint EntityManager::GetEntityCount(void) { return m_nEntityCount; }
+
+BoundingObject* EntityManager::GetBoundingObject(String a_sIndex)
+{
+	int nIndex = GetIndex(a_sIndex);
+	return GetBoundingObject(nIndex);
+}
+BoundingObject* EntityManager::GetBoundingObject(uint a_nIndex)
+{
+	if (a_nIndex < m_nEntityCount)
+		return entitiesList[a_nIndex]->getBO();
+		//return m_lObject[a_nIndex];
+
+	return nullptr;
+}

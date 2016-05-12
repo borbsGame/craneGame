@@ -76,6 +76,9 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Birbs\\backG.fbx", "Background");
 
 	srand(time(NULL));
+
+	m_pOctreeHead = new MyOctant();
+	
 }
 
 void AppClass::restart(void)
@@ -206,19 +209,25 @@ void AppClass::Update(void)
 	}
 
 	//if Debug mode is on, show FPS and Name
-	 if (debugMode){
-	//Indicate the FPS
-	int nFPS = m_pSystem->GetFPS();
-	//print info into the console
-	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
-	//Print info on the screen
-	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), RERED);
-	m_pMeshMngr->Print("\n");
-	
-	m_pMeshMngr->Print("FPS:");
-	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
-	m_pMeshMngr->Print("\n");
-	 }
+	if (debugMode) {
+		//Indicate the FPS
+		int nFPS = m_pSystem->GetFPS();
+		//print info into the console
+		//printf("FPS: %d            \r", nFPS);//print the Frames per Second
+		//Print info on the screen
+		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), RERED);
+		m_pMeshMngr->Print("\n");
+
+		m_pMeshMngr->Print("FPS:");
+		m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+		m_pMeshMngr->Print("\n");
+	}
+
+	m_pOctreeHead->Subdivide();
+	for (int i = 0; i < 8; i++)
+	{
+		m_pOctreeHead->m_pChildren[i].Display();
+	}
 }
 
 void AppClass::Display(void)
@@ -252,5 +261,11 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
+	if (m_pOctreeHead != nullptr)
+	{
+		delete m_pOctreeHead;
+		m_pOctreeHead = nullptr;
+	}
 	super::Release(); //release the memory of the inherited fields
+
 }

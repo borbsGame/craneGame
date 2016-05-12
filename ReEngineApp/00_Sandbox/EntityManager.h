@@ -56,6 +56,10 @@ public:
 	void setModelMatricies();
 	void updateEntities();
 
+	uint EntityManager::GetEntityCount(void);
+	BoundingObject* EntityManager::GetBoundingObject(String a_sIndex);
+	BoundingObject* EntityManager::GetBoundingObject(uint a_nIndex);
+
 	//Alberto's
 	int GetIndex(String a_sEntity);
 
