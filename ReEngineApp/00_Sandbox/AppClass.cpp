@@ -29,6 +29,7 @@ void AppClass::InitVariables(void)
 
 	//Debug mode is off
 	debugMode = false;
+	optimizeMode = true;
 
 	//Updates the Physics for each Entity or object that needs it in the window
 	entityManager = EntityManager::GetInstance();
@@ -149,7 +150,10 @@ void AppClass::Update(void)
 		//update every thing on screen that is moveable 
 		entityManager->setModelMatricies();
 		entityManager->updateEntities();
-		entityManager->checkCollisions();
+		if (!optimizeMode)
+		{
+			entityManager->checkCollisions();
+		}
 	}
 
 	//set the player matrix and draw it
@@ -207,15 +211,27 @@ void AppClass::Update(void)
 			m_pMeshMngr->Print("You lost! Press Space to Restart!", RERED);
 		}
 	}
+	if (optimizeMode)
+	{
+		m_pOctreeHead->Subdivide();
+	}
+
 
 	//if Debug mode is on, show FPS and Name
 	if (debugMode) {
+		if (optimizeMode)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				m_pOctreeHead->m_pChildren[i].Display();
+			}
+		}
 		//Indicate the FPS
 		int nFPS = m_pSystem->GetFPS();
 		//print info into the console
 		//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 		//Print info on the screen
-		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), RERED);
+		m_pMeshMngr->PrintLine("Debug Mode", RERED);
 		m_pMeshMngr->Print("\n");
 
 		m_pMeshMngr->Print("FPS:");
@@ -223,11 +239,8 @@ void AppClass::Update(void)
 		m_pMeshMngr->Print("\n");
 	}
 
-	m_pOctreeHead->Subdivide();
-	for (int i = 0; i < 8; i++)
-	{
-		//m_pOctreeHead->m_pChildren[i].Display();
-	}
+	
+	
 }
 
 void AppClass::Display(void)

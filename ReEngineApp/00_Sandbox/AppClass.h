@@ -34,7 +34,7 @@ public:
 	std::vector<Hawk*> hawks;
 	int hawkspeed = .5;
 	
-	bool debugMode;
+	bool debugMode, optimizeMode;
 	//std::vector<vector3> preyList;
 	//int numPrey = 8;
 

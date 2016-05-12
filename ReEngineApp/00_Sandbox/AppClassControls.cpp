@@ -95,6 +95,11 @@ void AppClass::ProcessKeyboard(void)
 			if (debugMode == false) { debugMode = true; }
 			else debugMode = false;
 		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
+			if (optimizeMode == false) { optimizeMode = true; }
+			else optimizeMode = false;
+		}
 	}
 	else
 	{
