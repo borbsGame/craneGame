@@ -142,6 +142,8 @@ void BoundingObject::DisplayReAlligned(MeshManagerSingleton* meshMngr)
 
 //Accessors
 void BoundingObject::SetModelMatrix(matrix4 a_m4ToWorld) {
+	//If there are no changes in the Model Matrix there is no need
+	//of doing further calculations
 	if (m_m4ToWorld == a_m4ToWorld)
 		return;
 
@@ -221,6 +223,13 @@ bool BoundingObject::getBoxVisibility() {
 }
 void BoundingObject::setBoxVisibility(bool isVisible) {
 	m_boxVisible = isVisible;
+}
+Entity* BoundingObject::getEntity() {
+	return this->myEntity;
+}
+
+void BoundingObject::setEntity(Entity* entity) {
+	this->myEntity = entity;
 }
 
 

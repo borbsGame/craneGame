@@ -6,6 +6,7 @@ Entity::Entity(std::string renderID, MeshManagerSingleton* meshMngr)
 {
 	this->renderID = renderID;
 	boundingObject = new BoundingObject(meshMngr->GetVertexList(renderID));
+	boundingObject->setEntity(this);
 	
 	scale = vector3(1.0f, 1.0f, 0.1f);
 	position = vector3(0.0f, 0.0f, 0.0f);
@@ -14,7 +15,6 @@ Entity::Entity(std::string renderID, MeshManagerSingleton* meshMngr)
 
 void Entity::update(float a_fDeltaTime)
 {
-
 	//Apply friction
 	float fFriction = MapValue(m_fFriction, 0.0f, 1.0f, 1.0f, 0.0f);
 	m_v3Force = m_v3Force * fFriction;

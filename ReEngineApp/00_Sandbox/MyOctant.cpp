@@ -39,9 +39,10 @@ void MyOctant::Init(void)
 			}
 		}
 		m_v3Position = (vMinG + vMaxG) / 2.0f;
-		float sizeX = glm::distance(vector3(vMinG.x, 0, 0), vector3(vMaxG.x, 0, 0));
-		float sizeY = glm::distance(vector3(0, vMinG.y, 0), vector3(0, vMaxG.y, 0));
-		float sizeZ = glm::distance(vector3(0, 0, vMinG.z), vector3(0, 0, vMaxG.z));
+		m_v3Position.y += 3.0f;
+		float sizeX = 10.5f;//glm::distance(vector3(vMinG.x, 0, 0), vector3(vMaxG.x, 0, 0));
+		float sizeY = 12.5f;//glm::distance(vector3(0, vMinG.y, 0), vector3(0, vMaxG.y, 0));
+		float sizeZ = 1.0f;//glm::distance(vector3(0, 0, vMinG.z), vector3(0, 0, vMaxG.z));
 		m_fSize = sizeX;
 		if (m_fSize < sizeY) m_fSize = sizeY;
 		if (m_fSize < sizeZ) m_fSize = sizeZ;
@@ -183,6 +184,23 @@ void MyOctant::Subdivide(void)
 		if (m_pChildren[i].objInside.size() > 4)
 		{
 			m_pChildren[i].Subdivide();
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			if (m_pChildren[i].objInside.size() > 1)
+			{
+				for (int k = 0; k < m_pChildren[i].objInside.size(); k++) {
+					//newBOMngr->AddObject(m_pChildren[i].objInside[k], "oct" + std::to_string(i) + "," + std::to_string(k));
+					if (k + 1 < m_pChildren[i].objInside.size()) {
+						if (m_pChildren[i].objInside[k]->IsColliding(m_pChildren[i].objInside[k + 1])) {
+							//m_pMeshMngr->SetVisibleBO()
+							//m_pChildren[i].objInside[k]->DisplayOriented(m_pMeshMngr);
+							//m_pChildren[i].objInside[k + 1]->DisplayOriented(m_pMeshMngr);
+							m_pEMngr->collide(m_pChildren[i].objInside[k]->getEntity(), m_pChildren[i].objInside[k + 1]->getEntity());
+						}
+					}
+				}
+			}
 		}
 	}
 }

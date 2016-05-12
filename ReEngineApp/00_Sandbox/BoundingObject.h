@@ -2,8 +2,11 @@
 #define __BOUNDINGOBJECT_H_
 
 #include "RE\ReEng.h"
+//#include "Entity.h"
 #include <numeric>
 #include <stdlib.h>
+
+class Entity;
 
 class BoundingObject
 {
@@ -24,6 +27,8 @@ class BoundingObject
 
 	vector3 m_v3HalfWidth = vector3(0.0f);//Will store half the size of all sides
 	vector3 m_v3HalfWidthG = vector3(0.0f);//Will store half the size of all sides
+
+	Entity* myEntity;
 
 
 public:
@@ -67,6 +72,10 @@ public:
 	void drawBO(MeshManagerSingleton* meshMngr);
 
 	float dotProduct(vector3 a, vector3 b);
+
+	Entity* getEntity();
+
+	void setEntity(Entity* entity);
 
 	/*
 	USAGE: Gets the Bounding Object's center in local coordinates

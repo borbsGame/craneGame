@@ -46,7 +46,7 @@ void EntityManager::checkCollisions()
 	int numofBO = getNumEntities();
 	static int index = 0;
 
-	for (int i = 0; i < getNumEntities(); i++) {
+	/*for (int i = 0; i < getNumEntities(); i++) {
 		for(int j = 0; j < getNumEntities(); j++) {
 			if (i != j) {
 				Entity* temp1 = getEntity(i);
@@ -58,7 +58,7 @@ void EntityManager::checkCollisions()
 				}
 			}
 		}
-	}
+	}*/
 
 
 }
@@ -245,6 +245,7 @@ void EntityManager::updateEntities() {
 
 	for each(Entity* entity in entitiesList) {
 		entity->update(fDeltaTime);
+		entity->getBO()->setEntity(entity);
 	}
 }
 
